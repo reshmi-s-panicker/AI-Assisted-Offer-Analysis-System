@@ -12,11 +12,13 @@ Choosing between job opportunities is often challenging because each offer diffe
 
 This is a structured multi-criteria decision problem with subjective weighting and mixed qualitative-quantitative attributes.
 Without a structured approach, such decisions often rely on incomplete comparisons or emotional bias.
+
 ---
 ## 2. Introducing OfferIQ
 
 OfferIQ addresses this complexity by combining user-defined priorities with a deterministic evaluation model. While AI may be used to gather contextual company insights, the final decision-making process is governed by transparent mathematical logic rather than black-box AI judgment.
 This transforms an unstructured personal decision into a structured evaluation process.
+
 
 The goal of OfferIQ is not to replace human decision-making, but to provide a structured framework that reduces bias, increases clarity, and supports rational career choices.
 
