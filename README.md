@@ -106,5 +106,130 @@ The system does not rely entirely on AI because:
 
 
 ---
+## 6. Evaluation Criteria Definition
+
+OfferIQ evaluates job offers using the following structured criteria. Each criterion is either quantitative (numeric) or qualitative (scaled 1–5) and is converted into a normalized scoring format before weighted evaluation.
+
+---
+
+### 6.1 CTC (Cost to Company) – Numeric
+
+**Type:** Quantitative  
+**Input Format:** Annual compensation (e.g., 10 LPA, 15 LPA)  
+**Evaluation Method:** Min-max normalization across all offers  
+
+CTC represents the total financial compensation offered by the company. Since compensation values vary widely across offers, CTC is normalized to a 1–5 scale to ensure fair comparison.
+
+Higher CTC → Higher normalized score.
+
+---
+
+### 6.2 Growth Opportunity – 1 to 5 Scale
+
+**Type:** Qualitative (User Scored)  
+**Input Format:** Integer (1–5)  
+
+Represents career progression potential, promotion opportunities, and long-term advancement within the organization.
+
+Scale interpretation:
+
+- 5 → Strong growth potential  
+- 3 → Moderate growth  
+- 1 → Limited growth  
+
+Higher growth rating → Higher score.
+
+---
+
+### 6.3 Work-Life Balance – 1 to 5 Scale
+
+**Type:** Qualitative (User Scored)  
+**Input Format:** Integer (1–5)  
+
+Represents expected workload, flexibility, stress level, and work-hour balance.
+
+Scale interpretation:
+
+- 5 → Excellent work-life balance  
+- 3 → Moderate balance  
+- 1 → Poor balance  
+
+Higher work-life balance rating → Higher score.
+
+---
+
+### 6.4 Layoff Rate – Percentage (Inverse Scoring)
+
+**Type:** Quantitative (Risk Indicator)  
+**Input Format:** Percentage (%) or categorized risk level  
+
+Represents recent workforce reduction trends in the company.
+
+Since higher layoff rates indicate higher risk, scoring is inversely proportional.
+
+Lower layoff rate → Higher score  
+Higher layoff rate → Lower score  
+
+If percentage-based, values are normalized and inverted before scoring.
+
+---
+
+### 6.5 Bond Duration – Months (Inverse Scoring)
+
+**Type:** Quantitative (Constraint Indicator)  
+**Input Format:** Number of months  
+
+Represents the mandatory service period required before leaving the company.
+
+Since longer bond durations reduce flexibility, scoring is inversely proportional.
+
+Shorter bond duration → Higher score  
+Longer bond duration → Lower score  
+
+Bond duration is normalized and inverted before scoring.
+
+---
+
+### 6.6 Location Preference – 1 to 5 Scale
+
+**Type:** Qualitative (User Preference)  
+**Input Format:** Integer (1–5)  
+
+Represents how desirable the job location is to the user.
+
+Scale interpretation:
+
+- 5 → Highly preferred location  
+- 3 → Acceptable  
+- 1 → Undesirable  
+
+Higher preference rating → Higher score.
+
+---
+
+### Scoring Standardization
+
+All criteria are converted to a unified 1–5 scoring scale before weighted evaluation. This ensures consistency and fairness across both quantitative and qualitative inputs.
+
+The final ranking is computed using a deterministic weighted scoring model.
+
+### Note on Criteria Scope
+
+Due to time constraints and the scope of this implementation , the system currently evaluates a limited set of core criteria:
+
+- CTC
+- Growth Opportunity
+- Work-Life Balance
+- Layoff Rate
+- Bond Duration
+- Location Preference
+
+These criteria were selected to balance decision relevance with implementation clarity.
+
+The architecture of OfferIQ has been intentionally designed to be extensible. The deterministic scoring engine supports the addition of new criteria without structural modification to the core evaluation logic.
+
+In future iterations, additional factors such as company culture, business model stability, role alignment, learning ecosystem, market positioning, and long-term career trajectory can be incorporated to make the system more comprehensive and robust.
+
+The current implementation focuses on establishing a scalable and explainable decision framework, which can be expanded in subsequent versions.
 
 More details will be added as development progresses.
