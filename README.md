@@ -61,14 +61,16 @@ Instead of focusing on a single factor (such as salary), it evaluates offers acr
 
 ## 4. System Overview
 
-### 4.1 Decision flow:
+### 4.1. High-Level Architecture
 
-User Input  
-→ AI-Assisted Insight Retrieval (Company Insights)  
-→ Normalization (Qualitative to Numeric)  
-→ Weighted Scoring  
-→ Ranking  
-→ Explanation  
+OfferIQ is composed of the following modules:
+
+1. Input Layer
+2. AI-Assisted Insight Module
+3. Normalization Module
+4. Deterministic Scoring Engine
+5. Ranking & Explanation Module
+
 
 The system separates information gathering (AI) from decision logic (deterministic scoring).
 
@@ -101,7 +103,6 @@ The system does not rely entirely on AI because:
 - AI may provide incomplete or outdated information  
 - AI-based decision-making can become a black box  
 - Important career decisions require transparency and explainability  
-
 
 
 ---
