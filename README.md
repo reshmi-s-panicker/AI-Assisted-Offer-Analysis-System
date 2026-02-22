@@ -232,4 +232,87 @@ In future iterations, additional factors such as company culture, business model
 
 The current implementation focuses on establishing a scalable and explainable decision framework, which can be expanded in subsequent versions.
 
+## 7. Deterministic Decision Engine
+
+### 7.1 Overview
+
+The core of OfferIQ is a deterministic weighted scoring engine.  
+The engine evaluates each job offer using normalized criteria values and user-defined importance weights.
+
+The same input will always produce the same output, ensuring transparency and reproducibility.
+
+---
+
+### 7.2 Processing Flow
+
+The engine follows these steps:
+
+1. Extract numeric criteria (CTC, layoff rate, bond duration).
+2. Apply min-max normalization to scale values between 1 and 5.
+3. Invert risk-based criteria (layoff rate, bond duration).
+4. Combine normalized values with qualitative ratings.
+5. Apply weighted scoring using user-defined weights.
+6. Rank offers based on total score.
+7. Generate explanation based on contribution analysis.
+
+---
+
+### 7.3 Normalization Strategy
+
+Numeric values are normalized using min-max scaling:
+
+Score = 1 + ((value - min) / (max - min)) × 4
+
+For risk-based criteria:
+
+Score = 1 + (1 - normalized_value) × 4
+
+This ensures:
+- All criteria share a uniform 1–5 scale.
+- Lower risk produces higher scores.
+- Fair comparison across offers.
+
+---
+
+### 7.4 Weighted Scoring Model
+
+The final score for each offer is calculated as:
+
+Final Score = Σ (Criterion Score × Criterion Weight)
+
+Where:
+- Criterion Score ∈ [1, 5]
+- Weight is user-defined importance
+- Higher total score indicates stronger alignment with user priorities
+
+---
+
+### 7.5 Ranking Logic
+
+Offers are ranked in descending order based on total score.
+
+The ranking is fully deterministic and independent of AI output.
+
+---
+
+### 7.6 Explanation Generation
+
+To improve transparency, the engine calculates contribution values for each criterion:
+
+Contribution = Criterion Score × Weight
+
+The highest contributing factor is identified and included in the final explanation.
+
+This ensures the system remains interpretable and not a black-box evaluator.
+
+---
+
+### 7.7 Design Principles
+
+- Deterministic computation
+- Modular structure
+- Scalable to additional criteria
+- Clear separation from AI modules
+- Transparent mathematical logic
+
 More details will be added as development progresses.
