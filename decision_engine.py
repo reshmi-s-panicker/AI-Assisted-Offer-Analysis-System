@@ -1,34 +1,4 @@
 
-offers = [
-{
-"name": "Company A",
-"ctc": 12,
-"growth": 4,
-"wlb": 3,
-"layoff": 8,
-"bond": 12,
-"location": 4
-},
-{
-"name": "Company B",
-"ctc": 10,
-"growth": 5,
-"wlb": 4,
-"layoff": 3,
-"bond": 24,
-"location": 3
-}
-]
-
-weights = {
-"ctc": 5,
-"growth": 3,
-"wlb": 4,
-"layoff": 4,
-"bond": 2,
-"location": 3
-}
-
 #Generic min-max normalization function
 def normalize(values, invert=False):
     min_v = min(values)
@@ -111,12 +81,11 @@ def generate_explanation(top_offer, weights):
     for criterion, weight in weights.items():
         contributions[criterion] = score_map[criterion] * weight
 
-        sorted_factors = sorted(
-        contributions.items(),
-        key=lambda item: item[1],
-        reverse
-        =True
-        )
+    sorted_factors = sorted(
+    contributions.items(),
+    key=lambda item: item[1],
+    reverse = True
+    )
 
     top_factor = sorted_factors[0][0]
 

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OfferIQ — AI-Assisted Offer Analysis System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="logo">Offer<span>IQ</span></div>
+  <nav>
+    <a href="#analyzer">Analyzer</a>
+    <a href="#engine">Engine</a>
+    <a href="#features">Features</a>
+    <a href="#analyzer" class="nav-cta">Try Now →</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="pulse"></span> AI Decision Engine — Active
+    </div>
+    <h1>Rank Every<br>Offer with<br><em>Precision</em></h1>
+    <p>An AI-assisted system that fetches offer inputs, evaluates packages across location, growth potential, and product/service type, then ranks and scores them using an intelligent decision engine.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('analyzer').scrollIntoView({behavior:'smooth'})">
+        Analyze Offers →
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('engine').scrollIntoView({behavior:'smooth'})">
+        See How it Works
+      </button>
+    </div>
+  </div>
+
+  <!-- Right-side stat cards -->
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="val">92.3</div>
+      <div class="label">Decision Accuracy</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">6</div>
+      <div class="label">Ranking Factors</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">&lt;2s</div>
+      <div class="label">Analysis Time</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ANALYZER ===== -->
+<section class="main-section" id="analyzer">
+  <div class="section-label">// AI Analyzer</div>
+  <div class="section-title">Offer Analysis System</div>
+  <div class="section-sub">Submit offers via chat or form. The decision engine evaluates all parameters and produces a ranked output with scoring breakdown.</div>
+
+  <div class="system-layout">
+
+    <!-- CHATBOT -->
+    <div class="chat-panel">
+      <div class="chat-header">
+        <div class="chat-avatar">IQ</div>
+        <div class="chat-header-info">
+          <h4>OfferIQ Assistant</h4>
+          <p>● ONLINE — Decision Engine Ready</p>
+        </div>
+        <div class="online-dot"></div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages"></div>
+
+      <!-- Quick prompts — labels are UI only, logic in app.js -->
+      <div class="quick-prompts" id="quickPrompts">
+        <button class="qp" onclick="sendQuick('Rank by growth potential')">Growth ranking</button>
+        <button class="qp" onclick="sendQuick('Evaluate work life balance')">Work-life balance</button>
+        <button class="qp" onclick="sendQuick('Assess layoff rate risk')">Layoff rate</button>
+        <button class="qp" onclick="sendQuick('Compare bond duration')">Bond duration</button>
+      </div>
+
+      <div class="chat-input-area">
+        <input
+          type="text"
+          class="chat-input"
+          id="chatInput"
+          placeholder="Describe an offer or ask a question...">
+        <button class="send-btn" onclick="sendMessage()">↑</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="analysis-panel">
+
+      <!-- OFFER INPUT FORM -->
+      <div class="form-card">
+        <h3>Add Offer for Analysis</h3>
+        <p class="sub">// Fill in offer parameters for the decision engine</p>
+        <div class="form-grid">
+
+          <div class="form-group full">
+            <label>Company Name</label>
+            <input type="text" id="offerName" placeholder="e.g. Google, Infosys, Startup Inc.">
+          </div>
+
+          <div class="form-group full">
+            <label>CTC (Annual, Numeric)</label>
+            <input type="number" id="ctc" min="0" placeholder="e.g. 1200000">
+          </div>
+
+          <div class="form-group">
+            <label>Growth Potential</label>
+            <select id="growth_potential">
+              <option value="">Select...</option>
+              <option value="1">1 — Very Low</option>
+              <option value="2">2 — Low</option>
+              <option value="3">3 — Moderate</option>
+              <option value="4">4 — High</option>
+              <option value="5">5 — Very High</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Work-Life Balance</label>
+            <select id="wlb">
+              <option value="">Select...</option>
+              <option value="1">1 — Poor</option>
+              <option value="2">2 — Below Average</option>
+              <option value="3">3 — Average</option>
+              <option value="4">4 — Good</option>
+              <option value="5">5 — Excellent</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Layoff Rate (%)</label>
+            <input type="number" id="layoff_rate" min="0" max="100" placeholder="e.g. 5">
+          </div>
+
+          <div class="form-group">
+            <label>Bond Duration (months)</label>
+            <input type="number" id="bond_duration" min="0" placeholder="e.g. 12">
+          </div>
+
+          <div class="form-group full">
+            <label>Location Preference</label>
+            <select id="location">
+              <option value="">Select...</option>
+              <option value="1">1 — Not Preferred</option>
+              <option value="2">2 — Slightly Preferred</option>
+              <option value="3">3 — Neutral</option>
+              <option value="4">4 — Preferred</option>
+              <option value="5">5 — Highly Preferred</option>
+            </select>
+          </div>
+
+        </div>
+        <button class="analyze-btn" id="analyzeBtn" onclick="addOffer()">
+          <span id="analyzeLabel">+ Add &amp; Analyze Offer</span>
+        </button>
+
+        <!-- offer counter + hint shown after first offer is added -->
+        <div id="offerHint" style="display:none; margin-top:12px; padding:10px 14px; background:rgba(0,229,255,0.06); border:1px solid rgba(0,229,255,0.15); border-radius:3px; font-size:0.72rem; color:var(--accent); display:none; align-items:center; gap:10px;">
+          <span>✓</span>
+          <span id="offerHintText">Offer added. Fill in the form again to add your next offer and compare.</span>
+        </div>
+      </div>
+
+      <!-- RANKING RESULTS -->
+      <div class="results-card">
+        <div class="results-header">
+          <h3>Ranked Offers</h3>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="results-meta" id="resultsMeta">Awaiting analysis...</span>
+            <button id="clearAllBtn" onclick="clearAllOffers()" style="display:none; background:transparent; border:1px solid var(--border); color:var(--muted); padding:4px 10px; font-family:'IBM Plex Mono',monospace; font-size:0.62rem; border-radius:2px; cursor:pointer; letter-spacing:0.05em; text-transform:uppercase; transition:all 0.2s;">
+              ✕ Clear All
+            </button>
+          </div>
+        </div>
+
+        <!-- offer count badge -->
+        <div id="offerCountBar" style="display:none; margin-bottom:16px; padding:8px 14px; background:var(--surface); border:1px solid var(--border); border-radius:3px; font-size:0.7rem; color:var(--muted); display:none; justify-content:space-between; align-items:center;">
+          <span>📊 <span id="offerCount">0</span> offer(s) in comparison</span>
+          <span style="color:var(--accent); font-size:0.65rem;">↑ CTC scores update as new offers are added</span>
+        </div>
+
+        <div id="rankingList">
+          <div class="empty-state">No offers analyzed yet. Add offers using the form above.</div>
+        </div>
+      </div>
+
+    </div><!-- /.analysis-panel -->
+  </div><!-- /.system-layout -->
+
+  <!-- DECISION FACTOR WEIGHTS -->
+  <div class="factors-card">
+    <h3>Decision Engine — Factor Weights</h3>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:8px;" id="factorBars">
+      <!-- Rendered dynamically by app.js from WEIGHTS config -->
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="features-section" id="features">
+  <div class="section-label">// Capabilities</div>
+  <div class="section-title">What the System Does</div>
+  <div style="height:40px"></div>
+
+  <div class="features-grid">
+    <div class="feature-cell">
+      <div class="feature-num">01</div>
+      <div class="feature-icon">💰</div>
+      <h4>CTC</h4>
+      <p>25 pts max. Numeric salary input — normalized via min-max across all offers. Highest CTC = 25 pts, lowest = 0, others scaled proportionally.</p>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">02</div>
+      <div class="feature-icon">🚀</div>
+      <h4>Growth Potential</h4>
+      <p>Highest weighted at 28 pts. Rated 1–5: Very High = 28 pts, High = 22, Moderate = 15, Low = 8, Very Low = 2 pts.</p>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">03</div>
+      <div class="feature-icon">⚖️</div>
+      <h4>Work-Life Balance</h4>
+      <p>20 pts max. Rated 1–5: Excellent = 20 pts, Good = 16, Average = 11, Below Average = 6, Poor = 1 pt.</p>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">04</div>
+      <div class="feature-icon">📉</div>
+      <h4>Layoff Rate</h4>
+      <p>15 pts max, scored inversely. 0–5% = 15 pts, 6–15% = 11, 16–30% = 7, 31–50% = 3, above 50% = 1 pt.</p>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">05</div>
+      <div class="feature-icon">🔗</div>
+      <h4>Bond Duration</h4>
+      <p>10 pts max, scored inversely. No bond = 10 pts, 1–6 months = 8, 7–12 months = 6, 13–24 months = 3, 24+ = 1 pt.</p>
+    </div>
+    <div class="feature-cell">
+      <div class="feature-num">06</div>
+      <div class="feature-icon">📍</div>
+      <h4>Location Preference</h4>
+      <p>12 pts max. Rated 1–5: Highly Preferred = 12 pts, Preferred = 9, Neutral = 6, Slightly = 3, Not Preferred = 0 pts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DECISION ENGINE ===== -->
+<section class="engine-section" id="engine">
+  <div class="engine-layout">
+
+    <div>
+      <div class="section-label">// Decision Engine</div>
+      <div class="section-title">How Ranking Works</div>
+      <div class="section-sub">The engine collects offer parameters through the chat interface or form, normalizes numeric fields, applies weighted scoring, and outputs an ordered ranking.</div>
+
+      <div class="engine-step">
+        <span class="engine-step-num" style="color:var(--accent)">01</span>
+        <div>
+          <div class="engine-step-title">Input Collection</div>
+          <div class="engine-step-sub">Chat or form-based parameter extraction</div>
+        </div>
+      </div>
+
+      <div class="engine-step">
+        <span class="engine-step-num" style="color:var(--accent2)">02</span>
+        <div>
+          <div class="engine-step-title">Min-Max Normalization</div>
+          <div class="engine-step-sub">Convert CTC, layoff rate, bond to 1–5 scale</div>
+        </div>
+      </div>
+
+      <div class="engine-step">
+        <span class="engine-step-num" style="color:var(--accent3)">03</span>
+        <div>
+          <div class="engine-step-title">Weighted Scoring</div>
+          <div class="engine-step-sub">score × weight summed into composite total</div>
+        </div>
+      </div>
+
+      <div class="engine-step">
+        <span class="engine-step-num" style="color:var(--gold)">04</span>
+        <div>
+          <div class="engine-step-title">Rank &amp; Explain</div>
+          <div class="engine-step-sub">Sort descending, surface top factor explanation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENGINE VISUAL DIAGRAM -->
+    <div class="engine-visual">
+      <svg class="connections" viewBox="0 0 500 420">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(0,229,255,0.3)"/>
+          </marker>
+        </defs>
+        <line x1="100" y1="80"  x2="230" y2="190" stroke="rgba(0,229,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="400" y1="80"  x2="280" y2="190" stroke="rgba(0,229,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="100" y1="310" x2="230" y2="240" stroke="rgba(0,229,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="400" y1="310" x2="280" y2="240" stroke="rgba(0,229,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="250" y1="260" x2="250" y2="360" stroke="rgba(0,229,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+      </svg>
+
+      <div class="engine-node n1">
+        <div class="node-label">Input A</div>
+        Growth Potential
+      </div>
+      <div class="engine-node n2">
+        <div class="node-label">Input B</div>
+        Work-Life Balance
+      </div>
+      <div class="engine-node center">⚙️ DECISION<br>ENGINE</div>
+      <div class="engine-node n3">
+        <div class="node-label">Input C</div>
+        Layoff Rate
+      </div>
+      <div class="engine-node n4">
+        <div class="node-label">Input D</div>
+        Bond + Location
+      </div>
+      <div class="engine-node n5">
+        🏆 Ranked Output
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="logo">Offer<span>IQ</span></div>
+  <p>AI-Assisted Offer Analysis &amp; Ranking System</p>
+  <p>© 2026 OfferIQ</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
