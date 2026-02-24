@@ -94,16 +94,20 @@ def generate_explanation(top_offer, weights):
     f"performance in {top_factor}, which had significant influence "
     f"in the weighted decision model."
     )
+#wrapper function
+def analyze_offers(offers, weights):
 
+    if not offers:
+        return {
+            "ranking": [],
+            "explanation": "No offers provided."
+        }
 
-#main function
-if __name__ == "__main__":
-    
-    ranked = rank_offers(calculate_scores(offers, weights))
+    scored = calculate_scores(offers, weights)
+    ranked = rank_offers(scored)
+    explanation = generate_explanation(ranked[0], weights)
 
-    print("Ranking:")
-    for offer in ranked:
-        print(f"{offer['name']} : {round(offer['total'], 2)}")
-
-    print("\nExplanation:")
-    print(generate_explanation(ranked[0], weights))
+    return {
+        "ranking": ranked,
+        "explanation": explanation
+    }
