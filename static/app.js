@@ -68,7 +68,8 @@ function addMsg(text, type) {
 // FORM → SEND TO BACKEND
 // ============================================================
 
-async function addOffer() {
+function addOffer() {
+
   const offer = {
     name: document.getElementById("offerName").value.trim(),
     ctc: Number(document.getElementById("ctc").value),
@@ -86,6 +87,18 @@ async function addOffer() {
 
   offers.push(offer);
 
+  // JUST CONFIRM ADDED
+  addMsg(`Offer "${offer.name}" added. Total offers: ${offers.length}`, "ai");
+
+  clearForm();
+}
+async function analyzeOffers() {
+
+  if (offers.length < 2) {
+    addMsg("Please add at least 2 offers before analyzing.", "ai");
+    return;
+  }
+
   try {
     const response = await fetch("/analyze", {
       method: "POST",
@@ -97,13 +110,11 @@ async function addOffer() {
 
     const data = await response.json();
 
-    // Replace local offers with ranked ones from backend
     offers = data.ranking;
 
     renderRankings();
-    addMsg(data.explanation, "ai");
 
-    clearForm();
+    addMsg(data.explanation, "ai");
 
   } catch (error) {
     console.error(error);
@@ -154,7 +165,7 @@ function renderRankings() {
           <div class="rank-tags">
             <span class="tag">CTC: ${o.ctc}</span>
             <span class="tag">Growth: ${o.growth}</span>
-            <span class="tag">WLB: ${o.wlb}</span>
+            <span class="tag">Work Life Balance: ${o.wlb}</span>
           </div>
         </div>
         <div class="rank-score">

@@ -159,10 +159,15 @@
             </select>
           </div>
 
-        </div>
-        <button class="analyze-btn" id="analyzeBtn" onclick="addOffer()">
-          <span id="analyzeLabel">+ Add &amp; Analyze Offer</span>
-        </button>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <button class="analyze-btn" onclick="addOffer()">
+              + Add Offer
+            </button>
+          
+            <button class="analyze-btn" onclick="analyzeOffers()">
+              Analyze All Offers
+            </button>
+          </div>
 
         <!-- offer counter + hint shown after first offer is added -->
         <div id="offerHint" style="display:none; margin-top:12px; padding:10px 14px; background:rgba(0,229,255,0.06); border:1px solid rgba(0,229,255,0.15); border-radius:3px; font-size:0.72rem; color:var(--accent); display:none; align-items:center; gap:10px;">
