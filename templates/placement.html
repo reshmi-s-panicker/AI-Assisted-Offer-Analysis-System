@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement Strategy — CareerOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header>
+  <a href="index.html" style="text-decoration:none">
+    <div class="logo">Career<span>OS</span><span class="sub-label">Placement Strategy</span></div>
+  </a>
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--muted);text-decoration:none">CareerOS</a>
+    <span class="sep">›</span>
+    <span class="crumb-current">Placement Strategy</span>
+  </div>
+  <nav>
+    <a class="nav-link hide-mobile" href="offeriq.html">OfferIQ</a>
+    <a class="nav-link hide-mobile" href="placement.html" style="color:var(--accent2)">Placement</a>
+    <a class="nav-link hide-mobile" href="interview.html">Interview</a>
+    <a class="nav-link hide-mobile" href="resume.html">Resume</a>
+    <a class="nav-cta" href="index.html">← Home</a>
+  </nav>
+</header>
+
+<div class="sub-hero">
+  <div class="sub-hero-left">
+    <div class="sub-hero-badge orange">
+      <span style="width:6px;height:6px;background:var(--accent2);border-radius:50%;animation:pulse 1.5s ease infinite;display:inline-block"></span>
+      placement.careeros.ai
+    </div>
+    <h1>Placement<br>Strategy<br><em style="color:var(--accent2)">Engine</em></h1>
+    <p>Input your situation — get a fully personalised roadmap, readiness score, daily plan, and live application tracker. Built to adapt to your timeline.</p>
+  </div>
+  <div class="sub-hero-stats">
+    <div class="sh-stat"><div class="sv" style="color:var(--accent2)" id="pstat-mode">—</div><div class="sl">Active Mode</div></div>
+    <div class="sh-stat"><div class="sv" style="color:var(--accent3)" id="pstat-score">—</div><div class="sl">Readiness</div></div>
+    <div class="sh-stat"><div class="sv" style="color:var(--gold)" id="pstat-apps">0</div><div class="sl">Applications</div></div>
+  </div>
+</div>
+
+<div class="sub-content">
+
+  <!-- STRATEGY BUILDER FORM -->
+  <div class="strategy-builder">
+    <div class="strategy-builder-title">Strategy Builder</div>
+    <div class="strategy-builder-sub">// Fill in your placement context — the engine generates everything below.</div>
+    <div class="sb-grid">
+      <div class="form-group">
+        <label>Days Left for Placement</label>
+        <input type="number" id="sb-days" min="1" max="365" placeholder="e.g. 45">
+      </div>
+      <div class="form-group">
+        <label>Target Company Tier</label>
+        <select id="sb-tier">
+          <option value="">Select tier...</option>
+          <option value="faang">Tier 1 — FAANG / Top MNC</option>
+          <option value="product">Tier 2 — Product-Based</option>
+          <option value="service">Tier 3 — Service Company</option>
+          <option value="startup">Startup</option>
+          <option value="government">Government / PSU</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Target Role</label>
+        <select id="sb-role">
+          <option value="">Select role...</option>
+          <option value="sde">SDE / Software Engineer</option>
+          <option value="data-analyst">Data Analyst</option>
+          <option value="ml">ML / AI Engineer</option>
+          <option value="devops">DevOps / Cloud</option>
+          <option value="uiux">UI/UX Designer</option>
+          <option value="consulting">Consulting</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Current DSA Level (1–5)</label>
+        <select id="sb-dsa">
+          <option value="">Select...</option>
+          <option value="1">1 — Beginner (Arrays/Strings)</option>
+          <option value="2">2 — Basic (Sorting, Searching)</option>
+          <option value="3">3 — Intermediate (Trees, DP)</option>
+          <option value="4">4 — Advanced (Graphs, Hard DP)</option>
+          <option value="5">5 — Expert (Contest level)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Current System Design Level (1–5)</label>
+        <select id="sb-sd">
+          <option value="">Select...</option>
+          <option value="1">1 — No exposure</option>
+          <option value="2">2 — Know the basics</option>
+          <option value="3">3 — Comfortable with HLD</option>
+          <option value="4">4 — Can design complex systems</option>
+          <option value="5">5 — Expert</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Placement Type</label>
+        <select id="sb-type">
+          <option value="">Select...</option>
+          <option value="oncampus">On-Campus</option>
+          <option value="offcampus">Off-Campus</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Dream CTC Range (LPA)</label>
+        <select id="sb-ctc">
+          <option value="">Select...</option>
+          <option value="0-5">0–5 LPA</option>
+          <option value="5-10">5–10 LPA</option>
+          <option value="10-20">10–20 LPA</option>
+          <option value="20-40">20–40 LPA</option>
+          <option value="40+">40+ LPA</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Communication Level (1–5)</label>
+        <select id="sb-comm">
+          <option value="">Select...</option>
+          <option value="1">1 — Needs major work</option>
+          <option value="2">2 — Below average</option>
+          <option value="3">3 — Average</option>
+          <option value="4">4 — Good</option>
+          <option value="5">5 — Excellent</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Resume Strength (1–5)</label>
+        <select id="sb-resume">
+          <option value="">Select...</option>
+          <option value="1">1 — Not started</option>
+          <option value="2">2 — Draft, weak bullets</option>
+          <option value="3">3 — Decent, needs polish</option>
+          <option value="4">4 — Strong with metrics</option>
+          <option value="5">5 — ATS-optimised, polished</option>
+        </select>
+      </div>
+    </div>
+    <button class="sb-generate-btn" id="sbGenerateBtn" onclick="generateStrategy()">
+      <span id="sbGenerateLabel">⚡ Generate My Strategy</span>
+    </button>
+  </div>
+
+  <!-- MODE BANNER -->
+  <div class="mode-banner" id="modeBanner">
+    <div class="mode-icon" id="modeIcon">🎯</div>
+    <div>
+      <div class="mode-label" id="modeLabel">MODE</div>
+      <div class="mode-desc" id="modeDesc">Analysing your inputs...</div>
+    </div>
+  </div>
+
+  <!-- RISK INDICATOR -->
+  <div class="risk-banner" id="riskBanner">
+    <span id="riskIcon">⚠️</span>
+    <span id="riskText">Risk analysis loading...</span>
+  </div>
+
+  <!-- PLACEMENT TABS -->
+  <div class="placement-tabs" id="placementTabs" style="display:none">
+    <button class="ptab active" onclick="switchPTab('roadmap',this)">🗺️ Roadmap</button>
+    <button class="ptab" onclick="switchPTab('readiness',this)">📊 Readiness Score</button>
+    <button class="ptab" onclick="switchPTab('planner',this)">📅 Daily Planner</button>
+    <button class="ptab" onclick="switchPTab('tracker',this)">📌 App Tracker</button>
+  </div>
+
+  <!-- TAB: ROADMAP -->
+  <div class="ptab-panel active" id="ptab-roadmap">
+    <div class="dynamic-roadmap" id="dynamicRoadmap">
+      <div class="section-label">// Generated Roadmap</div>
+      <div class="section-title" style="margin-bottom:28px" id="roadmapTitle">Your Custom Plan</div>
+      <div id="roadmapPhases"></div>
+    </div>
+    <div id="roadmapDefault">
+      <div class="section-label">// Placement Roadmap</div>
+      <div class="section-title" style="margin-bottom:6px">Fill the form above to generate</div>
+      <p style="font-size:.78rem;color:var(--muted);margin-bottom:32px">Your personalised, time-boxed roadmap will appear here once you hit Generate.</p>
+      <div class="feat-grid">
+        <div class="feat-cell"><div class="feat-num">01</div><div class="feat-icon">📋</div><h4>Foundation</h4><p>Self-assessment, skill audit, and target company research. Builds the base for everything else.</p></div>
+        <div class="feat-cell"><div class="feat-num">02</div><div class="feat-icon">🛠️</div><h4>Preparation</h4><p>DSA, System Design, Resume polish, and LinkedIn optimisation based on your target tier.</p></div>
+        <div class="feat-cell"><div class="feat-num">03</div><div class="feat-icon">📬</div><h4>Outreach</h4><p>Applications pipeline, referral outreach, and follow-up cadence. Volume + quality, not just volume.</p></div>
+        <div class="feat-cell"><div class="feat-num">04</div><div class="feat-icon">🎤</div><h4>Interviews</h4><p>Mock interviews, STAR prep, domain-specific rounds, and live feedback loops.</p></div>
+        <div class="feat-cell"><div class="feat-num">05</div><div class="feat-icon">⚖️</div><h4>Offer Evaluation</h4><p>Compare offers using OfferIQ, negotiate smartly, and make a data-driven decision.</p></div>
+        <div class="feat-cell"><div class="feat-num">06</div><div class="feat-icon">🔁</div><h4>Retrospectives</h4><p>Weekly review loops to course-correct your strategy. Placement is iterative, not linear.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: READINESS SCORE -->
+  <div class="ptab-panel" id="ptab-readiness">
+    <div class="readiness-panel active">
+      <div class="readiness-header">
+        <div>
+          <div class="section-label">// Placement Readiness</div>
+          <div class="readiness-title">Skill Readiness Score</div>
+        </div>
+        <div class="readiness-score-ring">
+          <div class="rs-number" id="readinessNumber" style="color:var(--accent2)">—</div>
+          <div class="rs-denom">/ 100</div>
+          <div class="rs-label">Overall Score</div>
+        </div>
+      </div>
+      <div class="readiness-bars" id="readinessBars">
+        <div style="font-size:.72rem;color:var(--muted);padding:20px 0">Generate your strategy first to see the readiness breakdown.</div>
+      </div>
+      <div class="rs-weak-alert" id="rsWeakAlert" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- TAB: DAILY PLANNER -->
+  <div class="ptab-panel" id="ptab-planner">
+    <div class="daily-planner active">
+      <div class="section-label">// Daily Planner</div>
+      <div class="planner-header">
+        <div class="planner-day-label" id="plannerDayLabel">Day — / —</div>
+        <div class="planner-nav">
+          <button onclick="plannerPrev()">← Prev</button>
+          <span style="font-size:.65rem;color:var(--muted)" id="plannerDayCount">Day 0 of 0</span>
+          <button onclick="plannerNext()">Next →</button>
+        </div>
+      </div>
+      <div class="planner-tasks" id="plannerTasks">
+        <div class="planner-empty">Generate your strategy first — your daily plan will be built here automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: APPLICATION TRACKER -->
+  <div class="ptab-panel" id="ptab-tracker">
+    <div class="app-tracker active">
+      <div class="section-label">// Application Tracker</div>
+      <div class="section-title" style="font-size:1.2rem;margin-bottom:6px">Live Pipeline</div>
+      <div class="tracker-controls">
+        <button class="tracker-add-btn" onclick="openModal()">+ Add Application</button>
+        <div class="tracker-stats">
+          <span class="ts-pill" style="color:var(--accent)">Applied: <strong id="ts-applied">0</strong></span>
+          <span class="ts-pill" style="color:var(--gold)">Screening: <strong id="ts-screening">0</strong></span>
+          <span class="ts-pill" style="color:var(--accent3)">Interviews: <strong id="ts-interview">0</strong></span>
+          <span class="ts-pill" style="color:var(--accent3)">Offers: <strong id="ts-offer">0</strong></span>
+          <span class="ts-pill" style="color:#ff8080">Rejected: <strong id="ts-rejected">0</strong></span>
+        </div>
+      </div>
+      <div class="tracker-table-wrap">
+        <table class="tracker-table">
+          <thead>
+            <tr><th>#</th><th>Company</th><th>Role</th><th>Applied</th><th>Referral</th><th>Status</th><th>Follow-up</th><th></th></tr>
+          </thead>
+          <tbody id="trackerBody">
+            <tr><td colspan="8" style="text-align:center;padding:28px;color:var(--muted);font-size:.72rem;">No applications tracked yet. Click "+ Add Application" to start.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.sub-content -->
+
+<!-- ADD APPLICATION MODAL -->
+<div class="modal-overlay" id="appModal">
+  <div class="modal-box">
+    <div class="modal-title">Add Application</div>
+    <div class="modal-grid">
+      <div class="form-group"><label>Company Name</label><input type="text" id="m-company" placeholder="e.g. Google"></div>
+      <div class="form-group"><label>Role</label><input type="text" id="m-role" placeholder="e.g. SDE-2"></div>
+      <div class="form-group"><label>Applied Date</label><input type="date" id="m-date"></div>
+      <div class="form-group"><label>Referral?</label><select id="m-referral"><option value="no">No</option><option value="yes">Yes</option></select></div>
+      <div class="form-group"><label>Status</label><select id="m-status"><option value="applied">Applied</option><option value="screening">Screening</option><option value="interview">Interview</option><option value="offer">Offer</option><option value="rejected">Rejected</option><option value="followup">Follow-up Due</option></select></div>
+      <div class="form-group"><label>Follow-up Date</label><input type="date" id="m-followup"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveApplication()">Save Application</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">Placement<span>IQ</span></div>
+  <p>Part of CareerOS — <a href="index.html" style="color:var(--accent2)">← Back to Hub</a></p>
+  <p>© 2026 CareerOS</p>
+</footer>
+
+<script src="{{ url_for('static', filename='placement.js') }}"></script>
+</body>
+</html>

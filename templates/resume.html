@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder — CareerOS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header>
+  <a href="index.html" style="text-decoration:none">
+    <div class="logo">Career<span>OS</span><span class="sub-label">Resume Builder</span></div>
+  </a>
+  <div class="breadcrumb">
+    <a href="index.html" style="color:var(--muted);text-decoration:none">CareerOS</a>
+    <span class="sep">›</span>
+    <span class="crumb-current">Resume Builder</span>
+  </div>
+  <nav>
+    <a class="nav-link hide-mobile" href="offeriq.html">OfferIQ</a>
+    <a class="nav-link hide-mobile" href="placement.html">Placement</a>
+    <a class="nav-link hide-mobile" href="interview.html">Interview</a>
+    <a class="nav-link hide-mobile" href="resume.html" style="color:var(--gold)">Resume</a>
+    <a class="nav-cta" href="index.html">← Home</a>
+  </nav>
+</header>
+
+<div class="sub-hero">
+  <div class="sub-hero-left">
+    <div class="sub-hero-badge gold">
+      <span style="width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 1.5s ease infinite;display:inline-block"></span>
+      resume.careeros.ai
+    </div>
+    <h1>Build a Resume<br>That Gets<br><em style="color:var(--gold)">Callbacks</em></h1>
+    <p>ATS-optimized, impact-driven resume sections with guided templates and live preview. Structured for freshers and experienced professionals.</p>
+  </div>
+  <div class="sub-hero-stats">
+    <div class="sh-stat"><div class="sv" style="color:var(--gold)">ATS</div><div class="sl">Optimized</div></div>
+    <div class="sh-stat"><div class="sv" style="color:var(--accent)">Live</div><div class="sl">Preview</div></div>
+    <div class="sh-stat"><div class="sv" style="color:var(--accent3)">5</div><div class="sl">Sections</div></div>
+  </div>
+</div>
+
+<div class="sub-content">
+  <div class="resume-layout">
+
+    <!-- FORM -->
+    <div class="resume-form-card">
+      <div class="form-section-title">Personal Information</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Full Name</label><input type="text" id="r_name" placeholder="e.g. Arjun Mehta" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Job Title / Role</label><input type="text" id="r_title" placeholder="e.g. Software Engineer" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="r_email" placeholder="your@email.com" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Phone</label><input type="text" id="r_phone" placeholder="+91 9876543210" oninput="updatePreview()"></div>
+        <div class="form-group"><label>LinkedIn / Portfolio</label><input type="text" id="r_link" placeholder="linkedin.com/in/yourname" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Location</label><input type="text" id="r_location" placeholder="Bangalore, India" oninput="updatePreview()"></div>
+      </div>
+
+      <div class="form-section-title">Professional Summary</div>
+      <div class="form-group">
+        <label>Summary (2–3 lines)</label>
+        <textarea id="r_summary" placeholder="Results-driven software engineer with 3+ years building scalable backend systems…" oninput="updatePreview()"></textarea>
+      </div>
+
+      <div class="form-section-title">Experience</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Company Name</label><input type="text" id="r_company" placeholder="e.g. Infosys" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Role / Designation</label><input type="text" id="r_role" placeholder="e.g. Software Developer" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Duration</label><input type="text" id="r_duration" placeholder="Jun 2022 – Present" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Location</label><input type="text" id="r_exp_location" placeholder="Pune, India" oninput="updatePreview()"></div>
+      </div>
+      <div class="form-group" style="margin-top:10px">
+        <label>Key Achievements (one per line — use action verbs + numbers)</label>
+        <textarea id="r_achievements"
+          placeholder="Reduced API response time by 40% through caching with Redis&#10;Built microservice handling 2M+ daily requests with 99.9% uptime&#10;Led a team of 4 engineers to deliver feature 2 weeks ahead of schedule"
+          oninput="updatePreview()"></textarea>
+      </div>
+
+      <div class="form-section-title">Education</div>
+      <div class="form-grid">
+        <div class="form-group"><label>Degree &amp; Field</label><input type="text" id="r_degree" placeholder="B.Tech Computer Science" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Institution</label><input type="text" id="r_institution" placeholder="NIT Trichy" oninput="updatePreview()"></div>
+        <div class="form-group"><label>Year of Passing</label><input type="text" id="r_year" placeholder="2022" oninput="updatePreview()"></div>
+        <div class="form-group"><label>CGPA / Percentage</label><input type="text" id="r_cgpa" placeholder="8.7 / 10" oninput="updatePreview()"></div>
+      </div>
+
+      <div class="form-section-title">Skills &amp; Certifications</div>
+      <div class="form-group">
+        <label>Technical Skills (comma separated)</label>
+        <input type="text" id="r_skills" placeholder="Python, Django, AWS, PostgreSQL, Docker, Git" oninput="updatePreview()">
+      </div>
+      <div class="form-group" style="margin-top:10px">
+        <label>Certifications (one per line)</label>
+        <textarea id="r_certs"
+          placeholder="AWS Certified Solutions Architect – Associate (2023)&#10;Google Data Analytics Certificate (2022)"
+          oninput="updatePreview()" style="min-height:50px"></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="exportResume()">⬇ Export as Text</button>
+    </div>
+
+    <!-- LIVE PREVIEW -->
+    <div class="resume-preview" id="resumePreview">
+      <h2 id="pv_name">Your Name</h2>
+      <div class="rp-title" id="pv_title">Job Title / Role</div>
+      <div style="font-size:.65rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap">
+        <span id="pv_email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254048444c4965414a48444c4b0b464a48">[email&#160;protected]</a></span>
+        <span id="pv_phone">+91 XXXXXXXXXX</span>
+        <span id="pv_location">Location</span>
+        <span id="pv_link">linkedin.com/in/you</span>
+      </div>
+
+      <div class="resume-section-head">Summary</div>
+      <p id="pv_summary">Your summary will appear here...</p>
+
+      <div class="resume-section-head">Experience</div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-weight:600;font-size:.75rem" id="pv_role">Role / Designation</span>
+        <span style="font-size:.65rem;color:var(--muted)" id="pv_duration">Duration</span>
+      </div>
+      <div style="font-size:.68rem;color:var(--accent);margin-bottom:8px" id="pv_company">Company Name</div>
+      <ul id="pv_achievements" style="font-size:.68rem;color:var(--muted);padding-left:14px;line-height:1.8"></ul>
+
+      <div class="resume-section-head">Education</div>
+      <div style="display:flex;justify-content:space-between">
+        <div>
+          <div style="font-size:.75rem;font-weight:600" id="pv_degree">Degree</div>
+          <div style="font-size:.68rem;color:var(--muted)" id="pv_institution">Institution</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.68rem;color:var(--accent)" id="pv_year">Year</div>
+          <div style="font-size:.65rem;color:var(--muted)" id="pv_cgpa">CGPA</div>
+        </div>
+      </div>
+
+      <div class="resume-section-head">Skills</div>
+      <div id="pv_skills" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+
+      <div class="resume-section-head">Certifications</div>
+      <ul id="pv_certs" style="font-size:.68rem;color:var(--muted);padding-left:14px;line-height:1.8"></ul>
+    </div>
+
+  </div>
+
+  <!-- ATS Tips -->
+  <div style="margin-top:48px">
+    <div class="section-label">// ATS Optimization</div>
+    <div class="section-title" style="margin-bottom:24px">Resume Writing Principles</div>
+    <div class="feat-grid">
+      <div class="feat-cell"><div class="feat-num">01</div><div class="feat-icon">🎯</div><h4>Action Verb + Number</h4><p>Every bullet must start with an action verb and include a metric. "Improved performance" is weak. "Reduced load time by 60%" is strong.</p></div>
+      <div class="feat-cell"><div class="feat-num">02</div><div class="feat-icon">🔑</div><h4>Match Job Keywords</h4><p>ATS systems filter by keyword match. Copy exact terms from the job description — role titles, tools, frameworks — into your resume naturally.</p></div>
+      <div class="feat-cell"><div class="feat-num">03</div><div class="feat-icon">📐</div><h4>One Page Rule</h4><p>Under 5 years experience: strictly one page. Every word must earn its place. Remove GPA if under 7.5, remove "References available on request."</p></div>
+      <div class="feat-cell"><div class="feat-num">04</div><div class="feat-icon">🚫</div><h4>No Tables / Columns</h4><p>ATS parsers break on multi-column layouts. Use clean, single-column formatting. No photos, no icons, no headers/footers with important information.</p></div>
+      <div class="feat-cell"><div class="feat-num">05</div><div class="feat-icon">📝</div><h4>Tailor Per Application</h4><p>Never send the same resume everywhere. Maintain a master resume and create role-specific versions adjusting 3–4 bullets and the summary for each apply.</p></div>
+      <div class="feat-cell"><div class="feat-num">06</div><div class="feat-icon">✅</div><h4>Save as PDF</h4><p>Always submit as PDF unless stated otherwise. Name it "FirstName_LastName_Resume.pdf" — never "resume_final_v3.pdf".</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">Resume<span>IQ</span></div>
+  <p>Part of CareerOS — <a href="index.html" style="color:var(--gold)">← Back to Hub</a></p>
+  <p>© 2026 CareerOS</p>
+</footer>
+
+<script src="{{ url_for('static', filename='resume.js') }}"></script>
+</body>
+</html>
