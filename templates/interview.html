@@ -10,7 +10,7 @@
 <body>
 
 <header>
-  <a href="{{ url_for('index') }}" style="text-decoration:none"></a>
+  <a href="{{ url_for('index') }}" style="text-decoration:none">
     <div class="logo">Career<span>OS</span><span class="sub-label">Interview Prep</span></div>
   </a>
   <div class="breadcrumb">
@@ -19,11 +19,11 @@
     <span class="crumb-current">Interview Preparation</span>
   </div>
   <nav>
-    <a class="nav-link hide-mobile" href="offeriq.html">OfferIQ</a>
-    <a class="nav-link hide-mobile" href="placement.html">Placement</a>
-    <a class="nav-link hide-mobile" href="interview.html" style="color:var(--accent3)">Interview</a>
-    <a class="nav-link hide-mobile" href="resume.html">Resume</a>
-    <a class="nav-cta" href="index.html">← Home</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('offeriq') }}">OfferIQ</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('placement') }}">Placement</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('interview') }}" style="color:var(--accent3)">Interview</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('resume') }}">Resume</a>
+    <a class="nav-cta" href="{{ url_for('index') }}">← Home</a>
   </nav>
 </header>
 

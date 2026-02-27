@@ -10,20 +10,20 @@
 <body>
 
 <header>
-  <a href="index.html" style="text-decoration:none">
+  <a href="{{ url_for('index') }}" style="text-decoration:none"></a>
     <div class="logo">Career<span>OS</span><span class="sub-label">OfferIQ</span></div>
   </a>
   <div class="breadcrumb">
-    <a href="index.html" style="color:var(--muted);text-decoration:none">CareerOS</a>
+    <a href="{{ url_for('index') }}" style="color:var(--muted);text-decoration:none">CareerOS</a>
     <span class="sep">›</span>
     <span class="crumb-current">OfferIQ</span>
   </div>
   <nav>
-    <a class="nav-link hide-mobile" href="offeriq.html" style="color:var(--accent)">OfferIQ</a>
-    <a class="nav-link hide-mobile" href="placement.html">Placement</a>
-    <a class="nav-link hide-mobile" href="interview.html">Interview</a>
-    <a class="nav-link hide-mobile" href="resume.html">Resume</a>
-    <a class="nav-cta" href="index.html">← Home</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('offeriq') }}" style="color:var(--accent)">OfferIQ</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('placement') }}">Placement</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('interview') }}">Interview</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('resume') }}">Resume</a>
+    <a class="nav-cta" href="{{ url_for('index') }}">← Home</a>
   </nav>
 </header>
 
@@ -190,7 +190,7 @@
 
 <footer>
   <div class="logo">Offer<span>IQ</span></div>
-  <p>Part of CareerOS — <a href="index.html" style="color:var(--accent)">← Back to Hub</a></p>
+  <p>Part of CareerOS — <a href="{{ url_for('index') }}" style="color:var(--accent)">← Back to Hub</a></p>
   <p>© 2026 CareerOS</p>
 </footer>
 

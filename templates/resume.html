@@ -10,20 +10,20 @@
 <body>
 
 <header>
-  <a href="index.html" style="text-decoration:none">
+  <a href="{{ url_for('index') }}" style="text-decoration:none"></a>
     <div class="logo">Career<span>OS</span><span class="sub-label">Resume Builder</span></div>
   </a>
   <div class="breadcrumb">
-    <a href="index.html" style="color:var(--muted);text-decoration:none">CareerOS</a>
+    <a href="{{ url_for('index') }}" style="color:var(--muted);text-decoration:none">CareerOS</a>
     <span class="sep">›</span>
     <span class="crumb-current">Resume Builder</span>
   </div>
   <nav>
-    <a class="nav-link hide-mobile" href="offeriq.html">OfferIQ</a>
-    <a class="nav-link hide-mobile" href="placement.html">Placement</a>
-    <a class="nav-link hide-mobile" href="interview.html">Interview</a>
-    <a class="nav-link hide-mobile" href="resume.html" style="color:var(--gold)">Resume</a>
-    <a class="nav-cta" href="index.html">← Home</a>
+    <a class="nav-link hide-mobile" href="{{ url_for('offeriq') }}">OfferIQ</a>
+<a class="nav-link hide-mobile" href="{{ url_for('placement') }}">Placement</a>
+<a class="nav-link hide-mobile" href="{{ url_for('interview') }}">Interview</a>
+<a class="nav-link hide-mobile" href="{{ url_for('resume') }}" style="color:var(--gold)">Resume</a>
+<a class="nav-cta" href="{{ url_for('index') }}">← Home</a>
   </nav>
 </header>
 
@@ -106,7 +106,7 @@
       <h2 id="pv_name">Your Name</h2>
       <div class="rp-title" id="pv_title">Job Title / Role</div>
       <div style="font-size:.65rem;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap">
-        <span id="pv_email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="254048444c4965414a48444c4b0b464a48">[email&#160;protected]</a></span>
+        <span id="pv_email">email@domain.com</span>
         <span id="pv_phone">+91 XXXXXXXXXX</span>
         <span id="pv_location">Location</span>
         <span id="pv_link">linkedin.com/in/you</span>
@@ -161,7 +161,7 @@
 
 <footer>
   <div class="logo">Resume<span>IQ</span></div>
-  <p>Part of CareerOS — <a href="index.html" style="color:var(--gold)">← Back to Hub</a></p>
+  <p>Part of CareerOS — <a href="{{ url_for('index') }}" style="color:var(--gold)">← Back to Hub</a>
   <p>© 2026 CareerOS</p>
 </footer>
 
