@@ -10,7 +10,7 @@
 <body>
 
 <header>
-  <a href="{{ url_for('index') }}" style="text-decoration:none"></a>
+  <a href="{{ url_for('index') }}" style="text-decoration:none">
     <div class="logo">Career<span>OS</span><span class="sub-label">OfferIQ</span></div>
   </a>
   <div class="breadcrumb">
@@ -43,7 +43,7 @@
 <div class="sub-content">
   <div class="section-label">// AI Analyzer</div>
   <div class="section-title">Offer Analysis System</div>
-  <div class="section-sub">Fill in each offer's parameters — the engine evaluates and re-ranks automatically as you add more offers.</div>
+  <div class="section-sub">Add your offers one by one, then hit Analyze All to rank them together.</div>
 
   <div class="system-layout">
 
@@ -128,9 +128,19 @@
             </select>
           </div>
         </div>
-        <button class="analyze-btn" id="analyzeBtn" onclick="addOffer()">
-          <span id="analyzeLabel">+ Add &amp; Analyze Offer</span>
+
+        <!-- ADD OFFER — saves to queue, no scoring yet -->
+        <button class="analyze-btn" id="addBtn" onclick="addOffer()"
+          style="background:var(--surface);border:1px solid var(--border);color:var(--fg);margin-bottom:10px;">
+          + Add Offer
         </button>
+
+        <!-- ANALYZE ALL — hidden until at least 1 offer is added -->
+        <button class="analyze-btn" id="analyzeAllBtn" onclick="analyzeAll()"
+          style="display:none;">
+          ⚡ Analyze All Offers
+        </button>
+
         <div id="offerHint" style="display:none; margin-top:10px; padding:9px 13px;
              background:rgba(0,229,255,.06); border:1px solid rgba(0,229,255,.15);
              border-radius:3px; font-size:.7rem; color:var(--accent); align-items:center; gap:8px;">
