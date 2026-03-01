@@ -1,65 +1,97 @@
 
-# OfferIQ : AI-Assisted Offer Analysis System
+# CareerOS: Deterministic Career Companion System
+##Flask · Python · Vanilla JS · Modular Architecture
 ---
-OfferIQ is a web-based decision support system designed to help users compare multiple job offers in a structured and transparent way.
+CareerOS is a deterministic career decision system that helps users compare job offers, assess placement readiness, generate personalized preparation roadmaps, and track applications.
+It also includes structured interview preparation and a resume builder module, bringing offer analysis, strategy planning, and career execution into one unified platform.
 
-It combines user-defined priorities with deterministic multi-criteria evaluation logic to generate a ranked recommendation.
 
+---
+
+## 🏗 Architecture
+
+- Multi-page Flask application  
+- Modular placement engine  
+- Deterministic weighted scoring system  
+- In-memory state management (v1)
+
+---
+
+## 🚀 Project Status
+
+**Active Development**
+
+- ✅ Version 1 Complete  
+- 🔜 Version 2 Planned:
+  - React frontend migration
+  - Database integration
+  - Authentication system
+  - Persistent user state
 
 ## 1. Problem Understanding
 
-Choosing between job opportunities is often challenging because each offer differs across several dimensions such as salary, growth potential, job stability, work-life balance, and long-term prospects. Additionally, different individuals prioritize these factors differently.
+Career decisions — choosing between job offers, building a placement strategy, or preparing for interviews — are among the highest-stakes choices a student or professional makes. Yet most tools either offer generic advice or leave individuals to make decisions based on gut feel.
 
-This is a structured multi-criteria decision problem with subjective weighting and mixed qualitative-quantitative attributes.
-Without a structured approach, such decisions often rely on incomplete comparisons or emotional bias.
+CareerOS was built to solve three specific problems:
+-	Offer comparison is intuitive, not structured — people pick offers based on CTC alone, ignoring WLB, layoff risk, bond clauses, and growth trajectory.
+-	Placement preparation lacks personalization — generic advice does not adapt to remaining days, skill levels, target tier, or role.
+-	Progress and pipeline tracking are scattered — applications, tasks, and readiness exist in different spreadsheets with no unified view.
 
----
-## 2. Introducing OfferIQ
-
-OfferIQ addresses this complexity by combining user-defined priorities with a deterministic evaluation model. While AI may be used to gather contextual company insights, the final decision-making process is governed by transparent mathematical logic rather than black-box AI judgment.
-This transforms an unstructured personal decision into a structured evaluation process.
-
-
-The goal of OfferIQ is not to replace human decision-making, but to provide a structured framework that reduces bias, increases clarity, and supports rational career choices.
-
-        
-### 2.1  OfferIQ is intended for:
-
-- Final-year students comparing placement offers  
-- Professionals evaluating multiple job opportunities  
-- Individuals seeking a structured approach to career decision-making  
-
-It is particularly useful for users who want to reduce emotional bias and make rational decisions.
+CareerOS unifies these into a single deterministic, transparent, and data-driven system.
 
 ---
-### 2.2 OfferIQ supports the decision:
-
-> “Which job offer should I choose based on what matters most to me?”
-
-Instead of focusing on a single factor (such as salary), it evaluates offers across multiple weighted criteria.
-
----
+## 2. Assumptions Made
 
 
-## 3. Scope Definition
+| Assumption | Rationale |
+|------------|------------|
+| Users are honest about their skill levels | Readiness scores and roadmap phases depend on self-reported DSA, System Design, Communication, and Resume ratings. |
+| Scoring weights are universally applicable | Default weights (CTC=25, Growth=28, WLB=20, Layoff=15, Bond=10, Location=12) reflect common career priorities. Custom weight configuration is planned for future versions. |
+| In-memory storage is acceptable for v1 | Applications and strategy data are session-scoped. A database-backed approach is planned for v2. |
+| Users target one tier and role at a time | The placement engine generates a single focused roadmap. Multi-tier parallel planning is a future enhancement. |
+| CTC is provided in INR | All formatting and normalization assume Indian currency. Multi-currency support may be added later. |
+| One session = one user | No authentication is implemented in v1. Multi-user support with login and persistent accounts is planned for v2. |
 
-### 3.1 In Scope
-- Accepts multiple job offers as input
-- Allows users to define decision criteria
-- Allows users to assign importance (weights) to each criterion
-- Uses AI to fetch structured company insights (optional)
-- Applies deterministic weighted scoring
-- Provides a ranked recommendation
-- Explains why a particular offer ranks highest
+## Why the solution structured this way
+
+### 3.1 Separation of Concerns
+
+Each module of CareerOS has a single responsibility:
+- decision_engine.py — normalizes and scores job offers, returns ranked results
+- placement/strategy_generator.py — master coordinator, determines mode and calls sub-engines
+- placement/roadmap_builder.py — builds day-by-day phase plans and task lists
+- placement/readiness_calculator.py — computes weighted skill readiness score
+- placement/risk_assessor.py — evaluates placement risk based on time, tier, and gaps
+- placement/task_pool_builder.py — generates role and tier-specific daily task pools
+- placement/day_task_generator.py — picks contextual tasks for a specific day
+- placement/application_tracker.py — CRUD operations for the job application pipeline
+
   
-### 3.2 Out of Scope
-- It does not automatically make decisions for the user
-- It does not rely entirely on AI-generated judgments
-- It does not predict long-term career success
-- It does not replace professional career counseling
----
+### 3.2 Deterministic over AI-driven
 
-## 4. System Overview
+A fully AI-driven recommendation system was considered and rejected for three reasons: it behaves as a black box, career decisions require transparency and explainability, and deterministic scoring is reproducible and testable. The current system always shows exactly how a score was computed.
+
+
+
+### 3.3  Multi-page Flask over Single-Page App
+
+The initial prototype was a single HTML file with all modules. This was refactored into separate pages (index, offeriq, placement, interview, resume) because each module has independent logic, state, and JS requirements. Loading everything on one page was wasteful and harder to maintain.
+
+ 
+
+## 4. Design Decisions and Trade-offs
+
+
+
+| Decision | Why | Trade-off |
+|-----------|------|-----------|
+| Min-max CTC normalization | Enables fair relative comparison across multiple offers instead of relying on absolute salary thresholds | With only one offer, CTC score defaults to midpoint (12 pts equivalent) since no relative comparison is possible |
+| Inverse scoring for layoff & bond | Higher layoff rate and longer bond duration are worse for the candidate, so scores are inverted | Uses linear inversion rather than a smooth penalty curve, reducing granularity |
+| Mode-based day allocation | Four strategy modes (Deep / Balanced / Fast / Crash) adapt roadmap intensity based on days available | Hard cutoffs at 30/60/90 days — a user with 61 days receives different advice than one with 59 |
+| Role-weighted readiness scores | Different roles require different strengths (e.g., resume weight higher for Data Analyst than DSA) | Weights are hardcoded per role and not yet customizable |
+| In-memory application tracker | Simple implementation without database setup for v1 | All data resets on server restart or refresh |
+| Separate Add + Analyze flow in OfferIQ | Allows multiple offers to be added before scoring, improving normalization accuracy | Slightly more steps compared to single-click analysis |
+
 
 ### 4.1. High-Level Architecture
 
@@ -76,243 +108,130 @@ The system separates information gathering (AI) from decision logic (determinist
 
 ---
 
-### 4.2 Responsibility Separation
-- AI handles contextual data retrieval
-- Deterministic engine handles evaluation
-- Output remains explainable
-- The decision engine remains independent of the AI module.
----
+## 5. Edge Cases Considered
 
-## 5. AI Usage Justification
+- Single offer in OfferIQ — CTC normalization defaults to 12/25 pts (midpoint) since min-max cannot compare one value against itself.
+- 0 days left — triggers Crash Mode with maximum urgency weighting and no system design phase.
+- Expert DSA (level 5) targeting service company — tier modifiers reduce DSA days, roadmap shifts to core fundamentals and communication.
+- All fields empty in placement form — validation blocks submission with specific error message listing required fields.
+- Layoff rate = 0% — scores maximum 15 pts (safest possible). Layoff rate > 100% is capped at 100%.
+- Bond duration = 0 months — scores maximum 10 pts (no lock-in penalty).
+- Crash mode + high tier (FAANG) — risk assessor scores maximum risk and suggests switching to a safer tier.
+- Day planner requested before strategy generated — returns empty state with prompt to generate strategy first.
+- Deleting an application that no longer exists — server-side filter is idempotent, returns current list without error.
+- Resume builder with all fields empty — preview shows placeholder text without breaking layout.
 
-### 5.1 AI as Assistant
-OfferIQ follows a hybrid approach:
-
-- AI is used for contextual information retrieval.
-- Deterministic logic is used for evaluation and ranking.
-- The deterministic scoring engine ensures that the same input always produces the same output.
-- AI assists — it does not decide.
-- AI outputs are parsed and transformed into structured inputs before being passed to the scoring engine.
-  
-This ensures both intelligence and transparency in the decision-making process.
-
-### 5.2 Why Not Fully AI?
-The system does not rely entirely on AI because:
-
-- AI responses may vary across calls  
-- AI may provide incomplete or outdated information  
-- AI-based decision-making can become a black box  
-- Important career decisions require transparency and explainability  
 
 
 ---
-## 6. Evaluation Criteria Definition
+## 6. How to Run the Project
 
-OfferIQ evaluates job offers using the following structured criteria. Each criterion is either quantitative (numeric) or qualitative (scaled 1–5) and is converted into a normalized scoring format before weighted evaluation.
+### Prerequisites
+- Python 3.9+
+- pip (Python package manager)
+- Git (optional, for cloning)
 
----
+### Setup
+- 1. Clone or download the project
+git clone <repo-url>
+cd careeros
+- 2. Install dependencies
+pip install flask
+- 3. Run the server
+python app.py
 
-### 6.1 CTC (Cost to Company) – Numeric
+### Folder Structure
 
-**Type:** Quantitative  
-**Input Format:** Annual compensation (e.g., 10 LPA, 15 LPA)  
-**Evaluation Method:** Min-max normalization across all offers  
 
-CTC represents the total financial compensation offered by the company. Since compensation values vary widely across offers, CTC is normalized to a 1–5 scale to ensure fair comparison.
+```
+careeros/
+├── app.py                      → Flask application entry point
+├── decision_engine.py          → OfferIQ weighted scoring engine
+├── placement/                  → Placement Strategy Engine (modular)
+│   ├── strategy_generator.py   → Core orchestrator
+│   ├── readiness_calculator.py → Skill readiness scoring
+│   ├── risk_assessor.py        → Risk evaluation logic
+│   ├── roadmap_builder.py      → Phase construction
+│   ├── task_pool_builder.py    → Task generation logic
+│   ├── day_task_generator.py   → Daily planner logic
+│   └── application_tracker.py  → In-memory tracker (CRUD)
+├── templates/                  → Jinja2 HTML templates
+└── static/                     → Frontend JS & CSS
+```
 
-Higher CTC → Higher normalized score.
+### Test Routes(for development)
 
----
 
-### 6.2 Growth Opportunity – 1 to 5 Scale
-
-**Type:** Qualitative (User Scored)  
-**Input Format:** Integer (1–5)  
-
-Represents career progression potential, promotion opportunities, and long-term advancement within the organization.
-
-Scale interpretation:
-
-- 5 → Strong growth potential  
-- 3 → Moderate growth  
-- 1 → Limited growth  
-
-Higher growth rating → Higher score.
-
----
-
-### 6.3 Work-Life Balance – 1 to 5 Scale
-
-**Type:** Qualitative (User Scored)  
-**Input Format:** Integer (1–5)  
-
-Represents expected workload, flexibility, stress level, and work-hour balance.
-
-Scale interpretation:
-
-- 5 → Excellent work-life balance  
-- 3 → Moderate balance  
-- 1 → Poor balance  
-
-Higher work-life balance rating → Higher score.
+| Route            | What It Tests |
+|------------------|--------------|
+| `/test-score`    | Readiness calculator with sample skill inputs |
+| `/test-risk`     | Risk assessor for FAANG tier with weak skill levels |
+| `/test-strategy` | Full placement strategy generation (16-day example) |
+| `/test-roadmap`  | Phase roadmap generation for crash mode scenario |
+| `/test-taskpool` | Task pool generation for FAANG SDE role |
+| `/test-day`      | Day 3 task generation for a 16-day strategy |
 
 ---
 
-### 6.4 Layoff Rate – Percentage (Inverse Scoring)
 
-**Type:** Quantitative (Risk Indicator)  
-**Input Format:** Percentage (%) or categorized risk level  
+## 7. What I would Improve with more Time
 
-Represents recent workforce reduction trends in the company.
+### 7.1 Database + Multi-user Authentication
 
-Since higher layoff rates indicate higher risk, scoring is inversely proportional.
+The highest priority improvement. Right now all data — applications, strategy, daily task progress — lives in memory and is lost on refresh. With a proper database (PostgreSQL or SQLite) and user login system, each user would have their own persistent account with:
+- Personal application pipeline that survives sessions
+- Daily task completion tracking with streaks and history
+- Saved strategy with day-by-day progress checkpoints
+- Multiple strategy versions (on-campus vs off-campus)
 
-Lower layoff rate → Higher score  
-Higher layoff rate → Lower score  
 
-If percentage-based, values are normalized and inverted before scoring.
+### 7.2 Interview and Resume Modules - Move to Backend
 
----
+Currently the Interview Prep and Resume Builder pages are entirely JavaScript-driven with hardcoded content. Both would be significantly more powerful with backend support:
+- Interview questions served from a database, filterable by role/company/difficulty
+- Resume data saved per user and exportable as a proper PDF (not just text)
+- Resume scoring against ATS keyword lists specific to target job descriptions
+- Interview question contributions from community (crowdsourced question bank)
 
-### 6.5 Bond Duration – Months (Inverse Scoring)
 
-**Type:** Quantitative (Constraint Indicator)  
-**Input Format:** Number of months  
+### 7.3 React migration
 
-Represents the mandatory service period required before leaving the company.
+The current frontend is vanilla HTML/CSS/JS across 5 separate pages. A React migration would enable:
+- Single-page application with proper routing (React Router)
+- Shared state management across modules (Context API or Redux)
+- Component reusability — the card, badge, tab, and form patterns repeat across all pages
+- Much smoother animations, transitions, and real-time updates
+- Better mobile responsiveness through component-level media queries
 
-Since longer bond durations reduce flexibility, scoring is inversely proportional.
+### 7.4 Product Deployment
 
-Shorter bond duration → Higher score  
-Longer bond duration → Lower score  
+The project is planned for deployment as a real product. The deployment roadmap includes:
+- Containerize with Docker for consistent environments
+- Deploy on Render, Railway, or AWS EC2 with a proper domain
+- Add user waitlist and feedback loop from real users
+- Monitor usage with analytics to understand which modules get the most use
 
-Bond duration is normalized and inverted before scoring.
+### 7.5 OfferIQ - Customizable Weights 
 
----
+The current scoring weights (CTC=25, Growth=28, etc.) are fixed. Some users prioritize stability over growth or location over salary. A weight customization panel would let users drag sliders to adjust how much each factor matters to them personally.
 
-### 6.6 Location Preference – 1 to 5 Scale
+### 7.6 Placement Engine - ML Scoring Layer 
 
-**Type:** Qualitative (User Preference)  
-**Input Format:** Integer (1–5)  
+The current readiness and risk scoring is deterministic and rule-based. With enough user data, these scores could be trained on actual placement outcomes — whether users got offers after following the plan. This would make the scoring genuinely predictive rather than heuristic.
 
-Represents how desirable the job location is to the user.
+### 7.7 Notification and Reminder System
 
-Scale interpretation:
+A daily email or push notification reminding users of their planned tasks for the day, along with follow-up reminders for applications older than 7 days, would significantly improve conversion from "planning" to "doing."
 
-- 5 → Highly preferred location  
-- 3 → Acceptable  
-- 1 → Undesirable  
+## Technical Notes 
 
-Higher preference rating → Higher score.
+Technical Notes
+- All scoring in decision_engine.py uses min-max normalization scaled 1–5, then multiplied by criterion weights.
+- The placement engine uses mode detection (Deep/Balanced/Fast/Crash) based on hard day thresholds before applying tier modifiers.
+- Flask routes are kept thin — all business logic lives in the placement/ package and decision_engine.py.
+- The frontend uses fetch() for all placement API calls with proper JSON headers and error handling.
+- The OfferIQ page uses a two-step Add + Analyze flow to enable proper CTC normalization across all offers simultaneously.
+- interview.js and resume.js are intentionally lightweight — they handle only UI interactions with no backend dependency.
 
----
 
-### Scoring Standardization
 
-All criteria are converted to a unified 1–5 scoring scale before weighted evaluation. This ensures consistency and fairness across both quantitative and qualitative inputs.
-
-The final ranking is computed using a deterministic weighted scoring model.
-
-### Note on Criteria Scope
-
-Due to time constraints and the scope of this implementation , the system currently evaluates a limited set of core criteria:
-
-- CTC
-- Growth Opportunity
-- Work-Life Balance
-- Layoff Rate
-- Bond Duration
-- Location Preference
-
-These criteria were selected to balance decision relevance with implementation clarity.
-
-The architecture of OfferIQ has been intentionally designed to be extensible. The deterministic scoring engine supports the addition of new criteria without structural modification to the core evaluation logic.
-
-In future iterations, additional factors such as company culture, business model stability, role alignment, learning ecosystem, market positioning, and long-term career trajectory can be incorporated to make the system more comprehensive and robust.
-
-The current implementation focuses on establishing a scalable and explainable decision framework, which can be expanded in subsequent versions.
-
-## 7. Deterministic Decision Engine
-
-### 7.1 Overview
-
-The core of OfferIQ is a deterministic weighted scoring engine.  
-The engine evaluates each job offer using normalized criteria values and user-defined importance weights.
-
-The same input will always produce the same output, ensuring transparency and reproducibility.
-
----
-
-### 7.2 Processing Flow
-
-The engine follows these steps:
-
-1. Extract numeric criteria (CTC, layoff rate, bond duration).
-2. Apply min-max normalization to scale values between 1 and 5.
-3. Invert risk-based criteria (layoff rate, bond duration).
-4. Combine normalized values with qualitative ratings.
-5. Apply weighted scoring using user-defined weights.
-6. Rank offers based on total score.
-7. Generate explanation based on contribution analysis.
-
----
-
-### 7.3 Normalization Strategy
-
-Numeric values are normalized using min-max scaling:
-
-Score = 1 + ((value - min) / (max - min)) × 4
-
-For risk-based criteria:
-
-Score = 1 + (1 - normalized_value) × 4
-
-This ensures:
-- All criteria share a uniform 1–5 scale.
-- Lower risk produces higher scores.
-- Fair comparison across offers.
-
----
-
-### 7.4 Weighted Scoring Model
-
-The final score for each offer is calculated as:
-
-Final Score = Σ (Criterion Score × Criterion Weight)
-
-Where:
-- Criterion Score ∈ [1, 5]
-- Weight is user-defined importance
-- Higher total score indicates stronger alignment with user priorities
-
----
-
-### 7.5 Ranking Logic
-
-Offers are ranked in descending order based on total score.
-
-The ranking is fully deterministic and independent of AI output.
-
----
-
-### 7.6 Explanation Generation
-
-To improve transparency, the engine calculates contribution values for each criterion:
-
-Contribution = Criterion Score × Weight
-
-The highest contributing factor is identified and included in the final explanation.
-
-This ensures the system remains interpretable and not a black-box evaluator.
-
----
-
-### 7.7 Design Principles
-
-- Deterministic computation
-- Modular structure
-- Scalable to additional criteria
-- Clear separation from AI modules
-- Transparent mathematical logic
-
-More details will be added as development progresses.
