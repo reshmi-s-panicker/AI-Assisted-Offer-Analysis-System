@@ -8,7 +8,7 @@ It also includes structured interview preparation and a resume builder module, b
 
 ---
 
-## 🏗 Architecture
+##  Architecture
 
 - Multi-page Flask application  
 - Modular placement engine  
@@ -17,12 +17,12 @@ It also includes structured interview preparation and a resume builder module, b
 
 ---
 
-## 🚀 Project Status
+##  Project Status
 
 **Active Development**
 
-- ✅ Version 1 Complete  
-- 🔜 Version 2 Planned:
+-  Version 1 Complete  
+-  Version 2 Planned:
   - React frontend migration
   - Database integration
   - Authentication system
