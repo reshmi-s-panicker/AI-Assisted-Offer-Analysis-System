@@ -1,172 +1,129 @@
-# BUILD_PROCESS.md
+## AI Prompts Used
 
-## 1. How I Started
 
-The project began with a personal goal:  
-I wanted to build a system that could help solve real-life decision-making problems in a structured way.
+1. I want to build something around decision-making. 
+Maybe like a skincare recommendation system? 
+Users input skin type and concerns, and it suggests products.
+How do I structure something like that logically?
 
-In daily life, I often struggled to make decisions when multiple factors were involved. I wanted to move away from intuition-based decisions and instead create a system that evaluates options using weighted, logical criteria.
 
-My first idea was to build a **Skincare Companion System**, since choosing skincare products suitable for my skin type was difficult and overwhelming.
+2. Okay this skincare idea is getting complicated.
+Even oily skin has acne, sensitivity, hormonal stuff… 
+It’s becoming too subjective.Can you suggest decision problems where the inputs are measurable and numeric? Something I can actually score properly?
 
----
 
-## 2. How My Thinking Evolved
+3. What if I build something for placements? Like a strategy generator based on
+ Days left, company type, role, skill level etc can this be turned into a weighted logic system
+ 
 
-### Phase 1: Skincare Companion (Too Broad)
+4. I want to score offers on:
+ CTC, growth potential, work life balance ,layoff rate ,bond duration,location preferance
+How do I normalize mixed numeric and rating values? And what weights make sense?
 
-I realized skincare is an extremely broad and sensitive domain:
-- Multiple skin types
-- Ingredient compatibility
-- Allergies and medical considerations
-- Environmental factors
-- Seasonal variations
 
-The problem was highly qualitative and medically dependent.  
-Assigning reliable weights to such attributes would require deep domain research.
+5. My CSS and JS are in the static folder but not loading. Getting 404.How exactly should I reference static files in Flask templates?
 
----
 
-### Phase 2: Skincare for Oily Skin (Still Complex)
+6. Build the OfferIQ UI layout
+Left Chat assistant panel
+Right Offer input form
+Below Ranked results
+Make it structured and professional.
 
-To reduce complexity, I narrowed it to skincare for oily skin.
 
-However, even within oily skin:
-- Severity differs
-- Acne-prone vs non-acne-prone
-- Sensitivity variations
-- Hormonal and environmental impact
+7. i want the offeriq page to look like an AI chat interface. on the left
+side a chatbot called OfferIQ narrates the analysis as the user adds
+offers. on the right side there is a form to enter offer details and
+below that the ranked results show up. can you build this layout
+with proper styling?
 
-It became clear that even this reduced scope required complex qualitative evaluation. Quantifying these factors meaningfully within time constraints was unrealistic.
 
----
+8. right now when i click the button it adds and scores the offer at the
+same time. but the problem is if i add offers one by one the ctc
+normalization recalculates each time and the scores keep changing.
+can i separate it into two buttons — one to just add the offer to a
+queue and another button called analyze all that only appears after
+at least one offer is added and scores everything together at once?
 
-### Phase 3: College Recommender System
 
-Next, I considered building a college recommender system.
+9. right now my code was only comparing two offers. i want it to work for
+any number of offers — like 3, 5, 10. the normalization should compare
+all of them together at the same time. how do i change the code to
+support a dynamic list instead of just two fixed offers?
 
-This would require:
-- NAAC accreditation data
-- NIRF rankings
-- Placement statistics
-- Faculty ratios
-- Infrastructure quality
 
-The challenge was large-scale data collection and maintaining updated datasets. Due to time limitations and data dependency, I dropped this idea.
+10. my css and js files are not loading. i put them in a folder called
+static but the browser is showing 404 errors. in my html i wrote
+href="styles.css" but it doesnt work. how do i link static files
+correctly in flask?
 
----
 
-### Phase 4: Placement Strategy System
+11. I’m getting 500 error when generating strategy.
+Help me debug Route existence JSON mismatch KeyErrors Frontend-backend integration issues
 
-Then I thought of building a placement strategy system:
-- Product-based companies → DSA focus
-- Service-based companies → fundamentals + communication
-- Startup roles → project depth
 
-However, this required:
-- Mapping hiring patterns
-- Historical interview data
-- Company-specific weighting logic
+12. How do I convert OfferIQ into a full Career Companion System?
+Not just offer comparison.
+More like Placement strategy ,Application tracking, Daily planner ,Interview prep ,Resume assistant
 
-The factors were difficult to quantify objectively. It again leaned heavily on qualitative interpretation.
 
----
+13. i want to build a placement strategy generator. the user fills in
+how many days are left, what tier of company they are targeting
+like faang or service or startup, their role like sde or ml engineer,
+and their current skill levels for dsa system design communication
+and resume on a scale of 1 to 5. based on all this it should generate
+a personalized study roadmap. how do i approach this?
 
-### Final Direction: Offer Analysis System (OfferIQ)
 
-At this point, I identified the core theme across all ideas:
+14. i want to show the user how ready they are for placement as a percentage.
+it should be based on their 1-5 ratings for dsa sd communication and
+resume. but the weights of each skill should depend on the role —
+for consulting communication matters more than dsa, for sde its
+the opposite. how do i implement this weighted readiness score?
 
-Structured decision-making using quantifiable weighted factors.
 
-Job offer comparison was ideal because:
-- Salary is numeric
-- Layoff rate can be quantified
-- Bond duration is measurable
-- Growth potential and work-life balance can be scaled
-- Location preference can be ranked
+15. right now all the placement engine logic is written in javascript
+inside placement.js. i want to move all the calculation logic to
+python and just call it from javascript using fetch. how do i convert
+the javascript functions to python flask routes? and what should the
+request and response json look like for each route?
 
-This domain allowed normalization, deterministic scoring, and transparent evaluation.
 
-It was technically feasible within time constraints.
+16. i want to separate the placement python code into different files
+instead of putting everything in one big file. like one file for
+building the roadmap, one for calculating readiness, one for risk,
+one for daily tasks, one for tracking applications. how do i structure
+this as a python package and import from one file into another?
 
----
 
-## 3. Alternative Approaches Considered
+17. can you go through the decision engine and the placement engine code
+and tell me what edge cases can break them? like what happens if only
+one offer is added, what if someone has 5 days left and is targeting
+faang, what if all ctc values are the same. give me the exact inputs
+and what the expected output should be. also check if the task lists
+for each phase are fully written or if there are any gaps
 
-1. Fully AI-driven recommendation system  
-   - Rejected because it would behave like a black box.
-   - Career decisions require transparency.
 
-2. Rule-based yes/no elimination model  
-   - Too rigid.
-   - Does not allow nuanced comparison.
+18. How can I verify whether the frontend, Flask backend, and decision engine are correctly integrated?
 
-3. Ranking without normalization  
-   - Unfair comparisons (e.g., salary dominating everything).
 
-4. Direct AI score prediction  
-   - Lacked explainability.
-   - Not deterministic.
+19. Can I use a database only for the Application Tracker module and daily planner?
 
-Final choice:
-Deterministic weighted scoring with normalization.
 
----
+20. can i use session memory to store the daily planner data so that it doesnt disapper for each refresh
 
-## 4. Refactoring Decisions
+21. Fix KeyError related to mode_color in strategy generator
 
-During development, several improvements were made:
+## ALL SEARCH QUERIES
 
-- Separated normalization logic into `normalizer.py`
-- Kept scoring logic inside `decision_engine.py`
-- Refactored variable names for clarity (used `offer` instead of short forms)
-- Implemented inverse scoring for risk-related attributes
-- Converted from fixed two-offer comparison to dynamic multi-offer list
-- Added explanation generation for the highest-ranked factor
+## Google / GitHub
 
-This improved modularity, readability, and maintainability.
+ Searched Github and Google for existing Systems for refer how they structured 
+1. job offer comparison site - google (To Check whether any existing system present)
+2. job offer analysis system - Github ( Checked Github for the same purpose )
+3. job offer comparison app Android offer comparison
+4. job offer comparison spreadsheet template 
+5. job offer comparison calculator online job offer comparison tool
+6. job offer comparison calculator online job offer comparison tool
+7. Career companion system 
 
----
-
-## 5. Mistakes and Corrections
-
-- Used incorrect keyword (`invert` instead of `reverse`) in sorting — corrected.
-- Faced static file loading issues in Flask — fixed project structure.
-- Initially mixed logic and UI before modularizing backend.
-- Overestimated complexity of early ideas (skincare, college recommender).
-- Initially tried to include too many features before stabilizing core logic.
-
-Each mistake helped clarify scope and improve structure.
-
----
-
-## 6. What Changed During Development and Why
-
-1. Scope Reduction  
-   Moved from broad, domain-heavy systems to a structured, quantifiable problem.
-
-2. Deterministic over AI-driven  
-   Chosen to ensure transparency and explainability.
-
-3. Modular Architecture  
-   Separated backend logic from UI to maintain clean structure.
-
-4. Multi-offer Support  
-   Upgraded from static comparison to scalable ranking.
-
-5. Explanation Layer  
-   Added to improve interpretability of rankings.
-
-The system evolved from an abstract “decision helper” concept to a focused, deterministic Offer Analysis Engine.
-
----
-
-## Conclusion
-
-The development process demonstrates iterative refinement, scope control, and engineering discipline.
-
-The final system reflects:
-- Clear quantification strategy
-- Transparent scoring
-- Structured architecture
-- Practical decision support within realistic constraints
