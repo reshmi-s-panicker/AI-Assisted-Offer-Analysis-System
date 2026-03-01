@@ -1,6 +1,6 @@
 
 # CareerOS: Deterministic Career Companion System
-##Flask · Python · Vanilla JS · Modular Architecture
+## Flask · Python · Vanilla JS · Modular Architecture
 ---
 CareerOS is a deterministic career decision system that helps users compare job offers, assess placement readiness, generate personalized preparation roadmaps, and track applications.
 It also includes structured interview preparation and a resume builder module, bringing offer analysis, strategy planning, and career execution into one unified platform.
