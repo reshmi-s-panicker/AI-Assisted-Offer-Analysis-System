@@ -153,7 +153,7 @@ That realization led to the birth of CareerOS.
 
 ---
 
-## 4. Final Direction: CareerOS — AI Career Companion System
+## 4. Final Direction: CareerOS — A Career Companion System
 
 Instead of a single decision engine, I combined:
 
