@@ -183,7 +183,7 @@ Currently the Interview Prep and Resume Builder pages are entirely JavaScript-dr
 
 ### 7.3 React migration
 
-The current frontend is vanilla HTML/CSS/JS across 5 separate pages. A React migration would enable:
+The current frontend is HTML/CSS/Vanilla JS across 5 separate pages. A React migration would enable:
 - Single-page application with proper routing (React Router)
 - Shared state management across modules (Context API or Redux)
 - Component reusability — the card, badge, tab, and form patterns repeat across all pages
