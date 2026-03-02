@@ -2,12 +2,12 @@ def calc_risk(days, tier, dsa, sd, readiness, comm, res, placement_type, ctc):
 
     score = 0
 
-    # ── Time Pressure ──
+    # Time Pressur
     if days < 15:   score += 4
     elif days < 30: score += 3
     elif days < 60: score += 1
 
-    # ── Tier Difficulty ──
+    # Tier Difficulty
     tier_weights = {
         'faang': 3,
         'product': 2,
@@ -17,35 +17,35 @@ def calc_risk(days, tier, dsa, sd, readiness, comm, res, placement_type, ctc):
     }
     score += tier_weights.get(tier, 1)
 
-    # ── DSA Gap ──
+    # DSA Gap
     score += (5 - dsa)
 
-    # ── System Design Gap ──
+    # System Design Gap
     if tier in ('faang', 'product', 'startup'):
         score += (5 - sd)
 
-    # ── Resume + Communication Risk ──
+    # Resume + Communication Risk
     score += (5 - comm) * 0.5
     score += (5 - res) * 0.5
 
-    # ── Placement Type Risk ──
+    # Placement Type Risk 
     if placement_type == 'off-campus':
         score += 1
 
-    # ── CTC Pressure ──
+    # CTC Pressure 
     if isinstance(ctc, str):
         if '30' in ctc or '40' in ctc:
             score += 2
         elif '20' in ctc:
             score += 1
 
-    # ── Readiness Adjustment ──
+    # Readiness Adjustment 
     if readiness < 40:
         score += 3
     elif readiness < 60:
         score += 1
 
-    # ── Risk Classification ──
+    # Risk Classification 
     if score >= 12:
         level = 'high'
     elif score >= 6:

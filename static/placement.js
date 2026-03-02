@@ -1,15 +1,15 @@
-/* ══════════════════════════════════════════════
+/* 
    PLACEMENT ENGINE 2.0 — UI ONLY
    All logic lives in placement_engine.py
-══════════════════════════════════════════════ */
+ */
 
 let placementState = null;
 let plannerDay     = 1;
 let applications   = [];
 
-/* ══════════════
+/* 
    GENERATE STRATEGY — calls backend
-══════════════ */
+ */
 function generateStrategy() {
   const days = parseInt(document.getElementById('sb-days').value) || 0;
   const tier = document.getElementById('sb-tier').value;
@@ -70,9 +70,9 @@ function generateStrategy() {
   });
 }
 
-/* ══════════════
+/* 
    RENDER FUNCTIONS — UI only
-══════════════ */
+ */
 function renderMode(p) {
   const b = document.getElementById('modeBanner');
   b.className = 'mode-banner active';
@@ -131,9 +131,9 @@ function updateHeroStats(p) {
   document.getElementById('pstat-score').textContent = p.readiness.overall + '%';
 }
 
-/* ══════════════
+/* 
    DAILY PLANNER — calls backend per day
-══════════════ */
+ */
 function buildDailyPlan(p) {
   if (!p) return;
   plannerDay = 1;
@@ -191,9 +191,9 @@ function plannerNext() {
   renderPlannerDay();
 }
 
-/* ══════════════
+/* 
    TAB SWITCHING
-══════════════ */
+═ */
 function switchPTab(name, btn) {
   document.querySelectorAll('.ptab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
@@ -201,9 +201,9 @@ function switchPTab(name, btn) {
   if (btn) btn.classList.add('active');
 }
 
-/* ══════════════
+/*
    APPLICATION TRACKER — calls backend
-══════════════ */
+ */
 function openModal() {
   document.getElementById('appModal').classList.add('active');
   ['m-company', 'm-role'].forEach(id => document.getElementById(id).value = '');
@@ -295,9 +295,9 @@ function renderTracker() {
 
 
 
-/* ══════════════
+/* 
    INIT
-══════════════ */
+*/
 document.addEventListener('DOMContentLoaded', () => {
 
   // Close modal when clicking outside

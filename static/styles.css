@@ -1,9 +1,5 @@
-/* ═══════════════════════════════════════════════
-   CareerOS — styles.css
-   Dark brutalist theme. Shared across all pages.
-═══════════════════════════════════════════════ */
 
-/* ── VARIABLES ── */
+
 :root {
   --bg:      #070a0f;
   --surface: #0d1117;
@@ -17,7 +13,7 @@
   --gold:    #ffd166;
 }
 
-/* ── RESET ── */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -28,7 +24,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Grid background */
+
 body::before {
   content: '';
   position: fixed; inset: 0;
@@ -39,11 +35,10 @@ body::before {
   pointer-events: none; z-index: 0;
 }
 
-/* ── PAGE ROUTING ── */
+
 .page         { display: none; }
 .page.active  { display: block; }
 
-/* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -64,9 +59,7 @@ body::before {
   50%       { transform: translateY(-12px); }
 }
 
-/* ══════════════════════════════════════════════
-   SHARED HEADER
-══════════════════════════════════════════════ */
+
 header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   padding: 14px 40px;
@@ -88,12 +81,12 @@ header {
   display: block; margin-top: 1px;
 }
 
-/* Breadcrumb */
+
 .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.65rem; color: var(--muted); }
 .breadcrumb .sep { color: var(--border); }
 .breadcrumb .crumb-current { color: var(--accent); }
 
-/* Nav */
+
 nav { display: flex; align-items: center; gap: 24px; }
 nav a,
 nav button.nav-link {
@@ -115,9 +108,6 @@ nav button.nav-link:hover { color: var(--accent); }
 }
 .nav-cta:hover { background: #00c4e0 !important; }
 
-/* ══════════════════════════════════════════════
-   SHARED SECTION PRIMITIVES
-══════════════════════════════════════════════ */
 .section-label {
   font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 8px;
@@ -132,7 +122,7 @@ nav button.nav-link:hover { color: var(--accent); }
   max-width: 520px; margin-bottom: 44px;
 }
 
-/* ── BUTTONS ── */
+
 .btn-primary {
   background: var(--accent); color: var(--bg); border: none;
   padding: 13px 30px; font-family: 'IBM Plex Mono', monospace;
@@ -149,13 +139,13 @@ nav button.nav-link:hover { color: var(--accent); }
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ── PULSE DOT ── */
+
 .pulse {
   width: 6px; height: 6px; background: var(--accent);
   border-radius: 50%; animation: pulse 1.5s ease infinite; display: inline-block;
 }
 
-/* ── SHARED FOOTER ── */
+
 footer {
   position: relative; z-index: 1;
   border-top: 1px solid var(--border);
@@ -165,7 +155,7 @@ footer {
 footer .logo { font-size: 1rem; }
 footer p { font-size: .68rem; color: var(--muted); }
 
-/* ── FORM PRIMITIVES ── */
+
 input, select, textarea {
   background: var(--bg); border: 1px solid var(--border);
   color: var(--text); padding: 9px 12px;
@@ -181,7 +171,7 @@ label {
   color: var(--muted); display: block; margin-bottom: 5px;
 }
 
-/* ── CARD ── */
+
 .card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 6px; padding: 24px;
@@ -189,19 +179,17 @@ label {
 .card h3 { font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700; margin-bottom: 4px; }
 .card p.sub { font-size: .68rem; color: var(--muted); margin-bottom: 18px; }
 
-/* ── TAGS ── */
+
 .tag { font-size: .58rem; padding: 2px 7px; border-radius: 1px; letter-spacing: .05em; text-transform: uppercase; }
 .tag-cyan   { background: rgba(0,229,255,.1);   color: var(--accent); }
 .tag-orange { background: rgba(255,107,53,.1);  color: var(--accent2); }
 .tag-green  { background: rgba(180,255,57,.1);  color: var(--accent3); }
 .tag-gold   { background: rgba(255,209,102,.1); color: var(--gold); }
 
-/* ── EMPTY STATE ── */
+
 .empty-state { font-size: .74rem; color: var(--muted); text-align: center; padding: 24px 0; }
 
-/* ══════════════════════════════════════════════
-   HOME PAGE
-══════════════════════════════════════════════ */
+
 #page-home { min-height: 100vh; }
 
 .home-hero {
@@ -234,7 +222,7 @@ label {
   animation: fadeUp .6s .2s ease both;
 }
 
-/* Subdomain cards grid */
+
 .subdomain-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 16px; max-width: 960px; margin: 0 auto;
@@ -281,7 +269,7 @@ label {
 .enter-btn.green  { color: var(--accent3); }
 .enter-btn.gold   { color: var(--gold); }
 
-/* Stats strip */
+
 .stats-strip {
   display: flex; gap: 0; border: 1px solid var(--border);
   border-radius: 4px; overflow: hidden;
@@ -296,9 +284,7 @@ label {
 .stat-cell .sv { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--accent); }
 .stat-cell .sl { font-size: .62rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
 
-/* ══════════════════════════════════════════════
-   SHARED SUB-PAGE HERO
-══════════════════════════════════════════════ */
+
 .sub-hero {
   position: relative; z-index: 1;
   padding: 110px 40px 64px;
@@ -332,13 +318,13 @@ label {
 .sh-stat .sv { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; }
 .sh-stat .sl { font-size: .6rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-top: 2px; }
 
-/* Sub content wrapper */
+
 .sub-content {
   position: relative; z-index: 1;
   max-width: 1360px; margin: 0 auto; padding: 60px 40px;
 }
 
-/* ── FEATURES GRID (3-col) ── */
+
 .feat-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 2px; border: 1px solid var(--border); margin-bottom: 48px;
@@ -358,11 +344,11 @@ label {
 .feat-cell h4 { font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700; margin-bottom: 8px; }
 .feat-cell p  { font-size: .72rem; color: var(--muted); line-height: 1.7; }
 
-/* ── LAYOUT HELPERS ── */
+
 .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-/* ── STEP LIST ── */
+
 .step-list { display: flex; flex-direction: column; gap: 12px; }
 .step-item {
   display: flex; align-items: flex-start; gap: 14px;
@@ -373,12 +359,10 @@ label {
 .step-title { font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 600; margin-bottom: 3px; }
 .step-sub   { font-size: .7rem; color: var(--muted); }
 
-/* ══════════════════════════════════════════════
-   OFFERIQ PAGE
-══════════════════════════════════════════════ */
+
 .system-layout { display: grid; grid-template-columns: 400px 1fr; gap: 24px; align-items: start; }
 
-/* Chat panel */
+
 .chat-panel {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 6px; overflow: hidden;
@@ -462,7 +446,7 @@ label {
 }
 .send-btn:hover { background: #00c4e0; }
 
-/* Analysis panel */
+
 .analysis-panel { display: flex; flex-direction: column; gap: 18px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .form-group { display: flex; flex-direction: column; gap: 5px; }
@@ -479,7 +463,6 @@ label {
 .analyze-btn:hover { background: #00c4e0; }
 .analyze-btn.loading { opacity: .7; pointer-events: none; }
 
-/* Results */
 .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .results-meta   { font-size: .62rem; color: var(--muted); }
 
@@ -511,7 +494,7 @@ label {
 .score-bar   { width: 72px; height: 3px; background: var(--border); border-radius: 2px; margin-top: 3px; overflow: hidden; }
 .score-fill  { height: 100%; border-radius: 2px; width: 0; transition: width 1s ease; }
 
-/* Factor bars */
+
 .factors-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 22px; margin-top: 22px; }
 .factors-card h3 { font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700; margin-bottom: 18px; }
 .factor-row  { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -520,9 +503,7 @@ label {
 .factor-bar-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.2s ease; }
 .factor-pct  { font-size: .68rem; font-weight: 500; width: 44px; text-align: right; }
 
-/* ══════════════════════════════════════════════
-   PLACEMENT STRATEGY PAGE
-══════════════════════════════════════════════ */
+
 .roadmap-track {
   position: relative; padding-left: 28px;
   border-left: 2px solid var(--border);
@@ -555,9 +536,7 @@ label {
 .skill-bar-fill{ height: 100%; border-radius: 2px; background: var(--accent); }
 .skill-meta    { font-size: .62rem; color: var(--muted); margin-top: 6px; }
 
-/* ══════════════════════════════════════════════
-   INTERVIEW PREP PAGE
-══════════════════════════════════════════════ */
+
 .question-list { display: flex; flex-direction: column; gap: 10px; }
 .q-item {
   background: var(--card); border: 1px solid var(--border);
@@ -585,9 +564,7 @@ label {
 .tip-title { font-family: 'Syne', sans-serif; font-size: .88rem; font-weight: 700; margin-bottom: 8px; }
 .tip-text  { font-size: .72rem; color: var(--muted); line-height: 1.7; }
 
-/* ══════════════════════════════════════════════
-   RESUME BUILDER PAGE
-══════════════════════════════════════════════ */
+
 .resume-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
 .resume-form-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 24px; }
 
@@ -621,11 +598,7 @@ label {
 }
 .submit-btn:hover { background: #9fe028; }
 
-/* ══════════════════════════════════════════════
-   PLACEMENT ENGINE 2.0
-══════════════════════════════════════════════ */
 
-/* ── Strategy Builder Form ── */
 .strategy-builder {
   background: var(--card);
   border: 1px solid var(--border);
@@ -668,7 +641,7 @@ label {
 .sb-generate-btn:hover { background: #e05a25; transform: translateY(-1px); }
 .sb-generate-btn.loading { opacity: .7; pointer-events: none; }
 
-/* ── Mode Banner ── */
+
 .mode-banner {
   display: none;
   padding: 16px 20px;
@@ -696,7 +669,7 @@ label {
 .mode-label.crash    { color: #ff6464; }
 .mode-desc { font-size: .72rem; color: var(--muted); line-height: 1.5; }
 
-/* ── Risk Indicator ── */
+
 .risk-banner {
   display: none;
   align-items: center; gap: 12px;
@@ -710,7 +683,6 @@ label {
 .risk-medium { background: rgba(255,209,102,.08); border: 1px solid rgba(255,209,102,.3); color: var(--gold); }
 .risk-low    { background: rgba(180,255,57,.06);  border: 1px solid rgba(180,255,57,.2);  color: var(--accent3); }
 
-/* ── Readiness Score Panel ── */
 .readiness-panel {
   display: none;
   background: var(--card); border: 1px solid var(--border);
@@ -746,7 +718,6 @@ label {
   border-radius: 3px; font-size: .72rem; color: var(--accent2);
 }
 
-/* ── Dynamic Roadmap ── */
 .dynamic-roadmap { display: none; }
 .dynamic-roadmap.active { display: block; }
 .drm-phase {
@@ -785,7 +756,7 @@ label {
   content: '→'; color: var(--accent2); font-size: .6rem; flex-shrink: 0;
 }
 
-/* ── Daily Planner ── */
+
 .daily-planner { display: none; }
 .daily-planner.active { display: block; }
 .planner-header {
@@ -845,7 +816,7 @@ label {
   border: 1px dashed var(--border); border-radius: 4px;
 }
 
-/* ── Application Tracker ── */
+
 .app-tracker { display: none; }
 .app-tracker.active { display: block; }
 .tracker-controls {
@@ -907,7 +878,7 @@ label {
 }
 .tracker-del-btn:hover { color: #ff8080; }
 
-/* Add application modal overlay */
+
 .modal-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(7,10,15,.85); z-index: 500;
@@ -943,7 +914,7 @@ label {
 }
 .modal-cancel:hover { border-color: var(--muted); color: var(--text); }
 
-/* ── Tab Navigation (inside placement) ── */
+
 .placement-tabs {
   display: flex; gap: 0;
   border: 1px solid var(--border); border-radius: 3px;
@@ -960,13 +931,10 @@ label {
 .ptab:hover { background: var(--card); color: var(--text); }
 .ptab.active { background: var(--card); color: var(--accent2); border-bottom: 2px solid var(--accent2); }
 
-/* ── Tab panels ── */
 .ptab-panel { display: none; }
 .ptab-panel.active { display: block; }
 
-/* ══════════════════════════════════════════════
-   RESPONSIVE
-══════════════════════════════════════════════ */
+
 @media (max-width: 1100px) {
   .subdomain-grid { grid-template-columns: 1fr; }
   .system-layout  { grid-template-columns: 1fr; }

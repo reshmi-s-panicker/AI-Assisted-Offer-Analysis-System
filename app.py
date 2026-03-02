@@ -49,7 +49,7 @@ def analyze():
     data   = request.json
     offers = data["offers"]
 
-    # ── Backend validation for layoff rate ──
+    # Backend validation for layoff rate
     for offer in offers:
         layoff = offer.get("layoff", 0)
         try:
@@ -241,7 +241,7 @@ def generate_placement_strategy():
 
     data = request.json
 
-    # -------- INPUT FROM UI --------
+    # INPUT FROM UI-
     days = int(data["days"])
     if days < 1:
       return jsonify({ "error": "Days must be at least 1." }), 400
@@ -255,20 +255,20 @@ def generate_placement_strategy():
     placement_type = data["placement_type"]
     ctc_range = data["ctc_range"]
 
-    # -------- STRATEGY --------
+    #STRATEGY 
     strategy = build_plan(
         days, tier, role,
         dsa, sd, comm, resume,
         placement_type, ctc_range
     )
 
-    #✅ READINESS
+    #READINESS
     readiness = strategy["readiness"]
 
-    # ✅ RISK
+    # RISK
     risk = strategy["risk"]
 
-    # ✅ RESPONSE
+    # RESPONSE
     return jsonify({
         "days": days,
         "mode": strategy["mode"],

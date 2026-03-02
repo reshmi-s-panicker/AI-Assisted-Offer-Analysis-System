@@ -93,30 +93,17 @@ The initial prototype was a single HTML file with all modules. This was refactor
 | Separate Add + Analyze flow in OfferIQ | Allows multiple offers to be added before scoring, improving normalization accuracy | Slightly more steps compared to single-click analysis |
 
 
-### 4.1. High-Level Architecture
-
-OfferIQ is composed of the following modules:
-
-1. Input Layer
-2. AI-Assisted Insight Module
-3. Normalization Module
-4. Deterministic Scoring Engine
-5. Ranking & Explanation Module
-
-
-The system separates information gathering (AI) from decision logic (deterministic scoring).
-
----
 
 ## 5. Edge Cases Considered
 
 - Single offer in OfferIQ — CTC normalization defaults to 12/25 pts (midpoint) since min-max cannot compare one value against itself.
-- 0 days left — triggers Crash Mode with maximum urgency weighting and no system design phase.
+- 0 days left and greater than 500 days left — Gives Warning message
 - Expert DSA (level 5) targeting service company — tier modifiers reduce DSA days, roadmap shifts to core fundamentals and communication.
 - All fields empty in placement form — validation blocks submission with specific error message listing required fields.
 - Layoff rate = 0% — scores maximum 15 pts (safest possible). Layoff rate > 100% is capped at 100%.
+- Layoff Rate should be between 0 and 100 otherwise warning message pop ups.
 - Bond duration = 0 months — scores maximum 10 pts (no lock-in penalty).
-- Crash mode + high tier (FAANG) — risk assessor scores maximum risk and suggests switching to a safer tier.
+- Bond Duration = less than 0 then warning message popups.
 - Day planner requested before strategy generated — returns empty state with prompt to generate strategy first.
 - Deleting an application that no longer exists — server-side filter is idempotent, returns current list without error.
 - Resume builder with all fields empty — preview shows placeholder text without breaking layout.
@@ -133,8 +120,8 @@ The system separates information gathering (AI) from decision logic (determinist
 
 ### Setup
 - 1. Clone or download the project
-git clone <repo-url>
-cd careeros
+  git clone <repo-url>
+  cd careeros 
 - 2. Install dependencies
 pip install flask
 - 3. Run the server

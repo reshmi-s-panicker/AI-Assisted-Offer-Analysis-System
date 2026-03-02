@@ -5,7 +5,7 @@ def build_task_pool(tier, role, dsa, sd, res, comm):
 
     dsa_tasks = get_dsa_tasks(role, dsa, tier)
 
-    # ── Dynamic DSA Scaling ──
+    # Dynamic DSA Scaling 
     base_dsa = [
         { 'tag': 'dsa', 'text': 'Solve 3 Easy problems (warm-up)' },
         { 'tag': 'dsa', 'text': "Review yesterday's wrong solutions" },
@@ -21,7 +21,7 @@ def build_task_pool(tier, role, dsa, sd, res, comm):
     for task in dsa_tasks:
         base_dsa.append({ 'tag': 'dsa', 'text': task })
 
-    # ── Tier-Based Design Intensity ──
+    # Tier-Based Design Intensity 
     design_pool = [
         { 'tag': 'design', 'text': 'Study CAP theorem and trade-offs' },
         { 'tag': 'design', 'text': 'Sketch system design without reference' },
@@ -32,7 +32,7 @@ def build_task_pool(tier, role, dsa, sd, res, comm):
     elif tier == 'startup':
         design_pool.append({ 'tag': 'design', 'text': 'Design scalable MVP backend' })
 
-    # ── Resume Scaling ──
+    # Resume Scaling 
     resume_pool = [
         { 'tag': 'resume', 'text': 'Rewrite 2 resume bullets with quantified metrics' },
         { 'tag': 'resume', 'text': 'Tailor resume for specific job description' },
@@ -41,7 +41,7 @@ def build_task_pool(tier, role, dsa, sd, res, comm):
     if res <= 2:
         resume_pool.append({ 'tag': 'resume', 'text': 'Get resume reviewed by senior or mentor' })
 
-    # ── Mock Scaling ──
+    # Mock Scaling 
     mock_pool = [
         { 'tag': 'mock', 'text': 'Practice STAR story out loud' },
         { 'tag': 'mock', 'text': 'Simulate 30-min technical interview' },
@@ -50,7 +50,7 @@ def build_task_pool(tier, role, dsa, sd, res, comm):
     if comm <= 2:
         mock_pool.append({ 'tag': 'mock', 'text': 'Practice 10-min self-introduction recording' })
 
-    # ── Apply Scaling ──
+    # Apply Scaling 
     apply_pool = [
         { 'tag': 'apply', 'text': 'Apply to 3 companies' },
         { 'tag': 'apply', 'text': 'Send 2 referral messages' },

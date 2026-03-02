@@ -1,9 +1,9 @@
-# ══════════════════════════════════════════════
+
 #   strategy_generator.py
 #   Determines mode, allocates days, applies
 #   tier modifiers, calls all sub-engines,
 #   returns the complete plan dict.
-# ══════════════════════════════════════════════
+
 
 from placement.roadmap_builder      import build_phases
 from placement.readiness_calculator import build_readiness
@@ -13,7 +13,7 @@ from placement.task_pool_builder    import build_task_pool
 
 def build_plan(days, tier, role, dsa, sd, comm, res, placement_type, ctc):
 
-    # ── Determine Mode ──
+    # Determine Mode 
     if days >= 90:
         mode       = 'deep'
         mode_label = 'DEEP PREP MODE'
@@ -39,7 +39,7 @@ def build_plan(days, tier, role, dsa, sd, comm, res, placement_type, ctc):
         mode_color = 'crash'
         mode_desc  = f'Based on {days} days remaining, you are in CRASH MODE. Revise top patterns, polish resume, hammer applications daily.'
 
-    # ── Day Allocation ──
+    # Day Allocation 
     if mode == 'deep':
         alloc = { 'dsa': 40, 'sd': 20, 'core': 15, 'mock': 10, 'resume': 5, 'apply': 0 }
     elif mode == 'balanced':
@@ -70,7 +70,7 @@ def build_plan(days, tier, role, dsa, sd, comm, res, placement_type, ctc):
             'apply':  round(days * 0.15),
         }
 
-    # ── Tier Modifiers ──
+    #  Tier Modifiers
     tier_mods = {
         'faang':      { 'dsa': +5, 'sd': +3, 'mock': +2 },
         'product':    { 'dsa': +2, 'sd': +3, 'mock': +2, 'resume': +1 },
@@ -81,7 +81,7 @@ def build_plan(days, tier, role, dsa, sd, comm, res, placement_type, ctc):
     for k, v in tier_mods.get(tier, {}).items():
         if k in alloc:
             alloc[k] = max(0, alloc[k] + v)
-    # ── Normalize allocation so total == days ──
+    # Normalize allocation so total == days 
     total_alloc = sum(alloc.values())
 
     if total_alloc > days:
@@ -96,7 +96,7 @@ def build_plan(days, tier, role, dsa, sd, comm, res, placement_type, ctc):
 
     while sum(alloc.values()) < days:
         alloc['dsa'] += 1
-    # ── Call Sub-Engines ──
+    # Call Sub-Engines 
     phases    = build_phases(days, mode, tier, role, dsa, sd, alloc)
     readiness = build_readiness(tier, role, dsa, sd, comm, res)
     risk = calc_risk(

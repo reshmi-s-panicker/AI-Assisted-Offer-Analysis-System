@@ -1,6 +1,6 @@
-/* ══════════════════════════════════════════════
+/* 
    OFFERIQ ENGINE — Separate Add & Analyze
-══════════════════════════════════════════════ */
+*/
 let offers = [], msgCount = 0;
 
 const AI_WELCOME = [
@@ -41,9 +41,9 @@ const RANK_COLORS = ['var(--gold)','var(--accent)','var(--accent3)','var(--muted
 function bMax(v,b){ for(const x of b){ if(v<=x.max) return x.pts; } return b[b.length-1].pts; }
 function bMin(v,b){ for(const x of b){ if(v>=x.min) return x.pts; } return b[b.length-1].pts; }
 
-/* ══════════════
-   ADD OFFER — saves to list, no scoring yet
-══════════════ */
+
+   /*ADD OFFER — saves to list, no scoring yet*/
+
 function addOffer() {
   const form = document.getElementById('offerForm');
   if (!form.checkValidity()) {

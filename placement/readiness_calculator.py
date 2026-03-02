@@ -31,7 +31,7 @@ def build_readiness(tier, role, dsa, sd, comm, res):
 
     
 
-    # ── Critical Skill Floor (prevents fake high readiness) ──
+    # Critical Skill Floor (prevents fake high readiness) 
     
     
 

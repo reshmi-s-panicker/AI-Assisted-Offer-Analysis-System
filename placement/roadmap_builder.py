@@ -42,7 +42,7 @@ def build_phases(days, mode, tier, role, dsa, sd, alloc):
         cursor = end + 1
 
 
-    # ── Phase 1: DSA ──
+    # Phase 1: DSA 
     dsa_days = alloc.get('dsa', 0)
 
     if role == 'data-analyst':
@@ -70,7 +70,7 @@ def build_phases(days, mode, tier, role, dsa, sd, alloc):
         ['tag-cyan']
     )
 
-    # ── Phase 2: System Design ──
+    # Phase 2: System Design 
     sd_days = alloc.get('sd', 0)
     sd_title = 'System Design Sprint' if role in ('sde', 'ml') else f'{role_label} Domain Depth'
 
@@ -82,7 +82,7 @@ def build_phases(days, mode, tier, role, dsa, sd, alloc):
         ['tag-green']
     )
 
-    # ── Phase 3: Resume + Apply (Skip in crash) ──
+    # Phase 3: Resume + Apply (Skip in crash)
     if mode != 'crash':
         res_days = alloc.get('resume', 0) + alloc.get('apply', 0)
 
@@ -100,7 +100,7 @@ def build_phases(days, mode, tier, role, dsa, sd, alloc):
             ['tag-gold']
         )
 
-    # ── Phase 4: Mock ──
+    #Phase 4: Mock 
     mock_days = alloc.get('mock', 0)
 
     safe_add_phase(
@@ -116,7 +116,7 @@ def build_phases(days, mode, tier, role, dsa, sd, alloc):
         ['tag-orange']
     )
 
-    # ── Final Safety Buffer ──
+    # Final Safety Buffer 
     if cursor <= days:
         safe_add_phase(
             'Final Revision & Buffer',
