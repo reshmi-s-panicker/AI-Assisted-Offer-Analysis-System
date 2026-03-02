@@ -159,7 +159,7 @@ Instead of a single decision engine, I combined:
 
 - OfferIQ (Offer comparison engine)  
 - Placement Strategy Engine  
-- Interview Preparation module  
+- Interview Preparation module
 - Resume Builder  
 - Application Tracker  
 
