@@ -126,6 +126,7 @@ The initial prototype was a single HTML file with all modules. This was refactor
 pip install flask
 - 3. Run the server
 python app.py
+- 4. Use Chrome Browser for better UI experience
 
 ### Folder Structure
 
