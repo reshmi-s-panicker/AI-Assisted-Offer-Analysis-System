@@ -14,17 +14,29 @@ function generateStrategy() {
   const days = parseInt(document.getElementById('sb-days').value) || 0;
   const tier = document.getElementById('sb-tier').value;
   const role = document.getElementById('sb-role').value;
-  const dsa  = parseInt(document.getElementById('sb-dsa').value) || 1;
-  const sd   = parseInt(document.getElementById('sb-sd').value) || 1;
+  const dsa  = parseInt(document.getElementById('sb-dsa').value) ;
+  const sd   = parseInt(document.getElementById('sb-sd').value);
   const type = document.getElementById('sb-type').value;
   const ctc  = document.getElementById('sb-ctc').value;
-  const comm = parseInt(document.getElementById('sb-comm').value) || 1;
-  const res  = parseInt(document.getElementById('sb-resume').value) || 1;
+  const comm = parseInt(document.getElementById('sb-comm').value) ;
+  const res  = parseInt(document.getElementById('sb-resume').value) ;
 
   if (!days || !tier || !role) {
     alert('Please fill in at least: Days Left, Target Tier, and Target Role.');
     return;
   }
+  if (days < 1) {
+    alert('Days left must be at least 1.');
+    return;
+ }
+ if (days > 500) {
+    alert('Please enter a realistic days left value.');
+    return;
+  }
+ if (!dsa || !sd || !comm || !res) {
+    alert('Please fill in all skill levels before generating.');
+    return;
+}
 
   const btn = document.getElementById('sbGenerateBtn');
   btn.classList.add('loading');

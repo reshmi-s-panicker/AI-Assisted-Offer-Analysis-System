@@ -1,3 +1,5 @@
+import re
+
 from flask import Flask, render_template, request, jsonify
 from decision_engine import analyze_offers
 from placement.readiness_calculator import build_readiness
@@ -44,14 +46,24 @@ def interview():
     return render_template("interview.html")
 @app.route("/analyze", methods=["POST"])
 def analyze():
-    data = request.json
-
+    data   = request.json
     offers = data["offers"]
 
+    # ── Backend validation for layoff rate ──
+    for offer in offers:
+        layoff = offer.get("layoff", 0)
+        try:
+            layoff = float(layoff)
+        except (ValueError, TypeError):
+            return jsonify({ "error": f"Invalid layoff rate for '{offer.get('name', 'unknown')}'" }), 400
+
+        if layoff < 0 or layoff > 100:
+            return jsonify({
+                "error": f"Layoff rate for '{offer.get('name')}' is {layoff}%. Must be between 0 and 100."
+            }), 400
+
     result = analyze_offers(offers, WEIGHTS)
-
     return jsonify(result)
-
 
 @app.route("/test-score")
 def test_score():
@@ -231,6 +243,9 @@ def generate_placement_strategy():
 
     # -------- INPUT FROM UI --------
     days = int(data["days"])
+    if days < 1:
+      return jsonify({ "error": "Days must be at least 1." }), 400
+    
     tier = data["tier"]
     role = data["role"]
     dsa = int(data["dsa_level"])

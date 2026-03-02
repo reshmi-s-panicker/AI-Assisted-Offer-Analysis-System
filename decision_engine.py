@@ -13,7 +13,7 @@ def normalize(values, invert=False):
             n = (v - min_v) / (max_v - min_v)
             if invert:
                 n = 1 - n #invert the score
-            s = 1 + n * 4 #scale 1 to 5
+            s = 1 + n * 4 #scale 1 to 5p
 
         scores.append(s)
 

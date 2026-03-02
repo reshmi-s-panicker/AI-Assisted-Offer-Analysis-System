@@ -45,6 +45,11 @@ function bMin(v,b){ for(const x of b){ if(v>=x.min) return x.pts; } return b[b.l
    ADD OFFER — saves to list, no scoring yet
 ══════════════ */
 function addOffer() {
+  const form = document.getElementById('offerForm');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
   const o = {
     name:             document.getElementById('offerName').value.trim(),
     ctc:              document.getElementById('ctc').value,
@@ -56,6 +61,15 @@ function addOffer() {
   };
   if (!o.name) { alert('Please enter a company name.'); return; }
 
+// ── Layoff rate validation ──
+const layoffVal = parseFloat(o.layoff_rate);
+const layoffErr = document.getElementById('layoffError');
+if (o.layoff_rate !== '' && (isNaN(layoffVal) || layoffVal < 0 || layoffVal > 100)) {
+  layoffErr.style.display = 'block';
+  document.getElementById('layoff_rate').focus();
+  return;
+}
+layoffErr.style.display = 'none';
   const btn = document.getElementById('addBtn');
   btn.classList.add('loading');
   btn.textContent = 'Adding...';
@@ -78,12 +92,28 @@ function addOffer() {
 ══════════════ */
 function analyzeAll() {
   if (!offers.length) { alert('Add at least one offer first.'); return; }
+  if (offers.length < 2) {
+    addMsg('⚠ Add at least 2 offers to compare. Analysis needs more than one offer to rank meaningfully.', 'ai');
+    return;
+  }
 
   const btn = document.getElementById('analyzeAllBtn');
   btn.classList.add('loading');
   btn.textContent = '⚡ Analyzing...';
 
   setTimeout(() => {
+    // ── Final safety check before scoring ──
+    const invalid = offers.find(o => {
+      const v = parseFloat(o.layoff_rate);
+      return !isNaN(v) && (v < 0 || v > 100);
+    });
+    if (invalid) {
+      addMsg(`⚠ "${invalid.name}" has an invalid layoff rate. Remove it and re-add with a value between 0–100.`, 'ai');
+      btn.classList.remove('loading');
+      btn.textContent = '⚡ Analyze All Offers';
+      return;
+    }
+
     normCTC();
     offers.forEach(x => { x.score = scoreOffer(x); });
     offers.sort((a, b) => b.score - a.score);
@@ -96,6 +126,9 @@ function analyzeAll() {
     btn.classList.remove('loading');
     btn.textContent = '⚡ Re-Analyze All';
   }, 1000);
+  if (offers.length === 1) {
+  addMsg('⚠ Only 1 offer added. CTC, layoff and bond are scored at midpoint — add more offers for accurate comparison.', 'ai');
+}
 }
 
 /* ══════════════
@@ -107,9 +140,17 @@ function normCTC() {
   const mn = Math.min(...vals), mx = Math.max(...vals);
   offers.forEach(o => {
     const v = parseFloat(o.ctc) || 0;
-    o.ctc_score = mx === mn ? 12 : Math.round(((v - mn) / (mx - mn)) * 25);
+    // ── single offer — can't normalize, use midpoint and warn ──
+    if (mx === mn) {
+      o.ctc_score = 12;
+      o.ctc_note  = 'CTC scored at midpoint — add more offers for accurate comparison';
+    } else {
+      o.ctc_score = Math.round(((v - mn) / (mx - mn)) * 25);
+      o.ctc_note  = '';
+    }
   });
 }
+
 function scoreOffer(o) {
   let s = 0;
   s += o.ctc_score !== undefined ? o.ctc_score : bMin(parseFloat(o.ctc) || 0, CTC_B);
@@ -237,7 +278,8 @@ function clearAllOffers() {
 
 function clearOfferForm() {
   ['offerName','ctc','layoff_rate','bond_duration'].forEach(id => document.getElementById(id).value = '');
-  ['growth_potential','wlb','location'].forEach(id => document.getElementById(id).value = '');
+  ['growth_potential','wlb','location'].forEach(id => document.getElementById(id).selectedIndex = 0);
+  document.getElementById('layoffError').style.display = 'none';
 }
 
 /* ══════════════
